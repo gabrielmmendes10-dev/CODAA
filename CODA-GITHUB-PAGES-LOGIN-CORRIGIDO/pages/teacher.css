@@ -1,0 +1,12 @@
+body.is-teacher .brand-icon{background:#7655e8}body.is-teacher .kicker{color:#7655e8}
+.teacher-tools-105{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin:1rem 0}
+.teacher-tools-105 article{padding:1rem;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.teacher-tools-105 h3{margin:.2rem 0}.teacher-tools-105 p{font-size:.82rem;color:var(--muted)}
+.teacher-tools-105 input[type="file"]{width:100%;font-size:.78rem}
+.risk-panel{margin-top:1rem}.risk-list{display:grid;gap:.6rem}.risk-row{display:grid;grid-template-columns:1fr auto auto;gap:.75rem;align-items:center;padding:.8rem;border:1px solid var(--line);border-radius:11px;background:var(--surface-2)}
+.risk-row b.high{color:var(--red)}.risk-row b.medium{color:var(--orange)}.risk-row b.low{color:#238b57}
+.diary-student-list{display:table;width:100%;border-collapse:collapse}.diary-student-list>article{display:table-row}.diary-student-list>article>*{display:table-cell;padding:.65rem;border-bottom:1px solid var(--line);vertical-align:middle}
+.assessment-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:.35rem}.assessment-calendar>span{min-height:70px;padding:.4rem;border:1px solid var(--line);border-radius:8px;font-size:.72rem}.assessment-calendar b{display:block;color:var(--role-accent)}
+.teacher-intelligence-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}.institution-import-card{margin-bottom:1rem}.institution-import-card .platform-card-head{align-items:center}
+.assessment-calendar{display:grid;grid-template-columns:1fr;gap:.55rem}.assessment-calendar article{display:grid;grid-template-columns:58px 1fr;align-items:center;gap:.7rem;padding:.6rem;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}.assessment-calendar time{display:grid;place-items:center;padding:.35rem;border-radius:8px;background:var(--role-accent-soft);color:var(--role-accent)}.assessment-calendar time b{font-size:1.1rem}.assessment-calendar time span{text-transform:uppercase;font-size:.68rem}.assessment-calendar small{color:var(--muted)}
+.platform-list-item.risk>span{background:color-mix(in srgb,var(--red) 12%,var(--surface));color:var(--red)}

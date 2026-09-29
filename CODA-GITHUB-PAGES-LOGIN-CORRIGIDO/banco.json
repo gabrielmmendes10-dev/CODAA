@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "nome": "codaDB",
+    "versao": 7,
+    "descricao": "Banco JSON educativo e local da plataforma coda",
+    "teacherAccessCode": "PROF-CODA"
+  },
+  "tabelas": {
+    "alunos": [
+      {"id": 1, "nome": "Ana Souza", "trilha": "HTML", "ativo": true},
+      {"id": 2, "nome": "Bruno Lima", "trilha": "Python", "ativo": true},
+      {"id": 3, "nome": "Caio Alves", "trilha": "ESP32", "ativo": false},
+      {"id": 4, "nome": "Duda Reis", "trilha": "SQL", "ativo": true}
+    ],
+    "materias": [
+      {"id": "html", "nome": "HTML", "categoria": "Web", "aulas": 7},
+      {"id": "css", "nome": "CSS", "categoria": "Web", "aulas": 7},
+      {"id": "javascript", "nome": "JavaScript", "categoria": "Web", "aulas": 7},
+      {"id": "typescript", "nome": "TypeScript", "categoria": "Web", "aulas": 7},
+      {"id": "python", "nome": "Python", "categoria": "Sistemas", "aulas": 7},
+      {"id": "c", "nome": "C", "categoria": "Sistemas", "aulas": 7},
+      {"id": "cplus", "nome": "C+", "categoria": "Sistemas", "aulas": 7},
+      {"id": "cpp", "nome": "C++", "categoria": "Sistemas", "aulas": 7},
+      {"id": "csharp", "nome": "C#", "categoria": "Aplicações", "aulas": 7},
+      {"id": "java", "nome": "Java", "categoria": "Aplicações", "aulas": 7},
+      {"id": "react", "nome": "React", "categoria": "Aplicações", "aulas": 7},
+      {"id": "reactnative", "nome": "React Native", "categoria": "Aplicações", "aulas": 7},
+      {"id": "esp32", "nome": "ESP32", "categoria": "Hardware", "aulas": 7},
+      {"id": "sql", "nome": "SQL", "categoria": "Sistemas", "aulas": 7}
+    ],
+    "atividades": [
+      {"id": 1, "materia": "SQL", "titulo": "Consultar alunos ativos", "nivel": "iniciante"},
+      {"id": 2, "materia": "ESP32", "titulo": "Controlar LED no GPIO2", "nivel": "iniciante"}
+    ]
+  },
+  "conteudos": [],
+  "desafiosExtras": [],
+  "videos": [],
+  "modelos3D": [],
+  "recursos": [],
+  "quizzes": [],
+  "comunidade": [
+    {"id": 1, "author": "Bia Martins", "initials": "BM", "role": "Aluna", "time": "há 12 min", "topic": "JavaScript", "title": "Por que meu map retorna undefined?", "body": "Estou criando um novo array. Como identifico o erro dentro da arrow function?", "likes": 8, "respostas": [{"id": 101, "author": "Carlos Nunes", "initials": "CN", "role": "Professor", "time": "há 8 min", "body": "Verifique se a função usada no map retorna um valor em todos os casos. Você pode testar com um array pequeno no laboratório."}]},
+    {"id": 2, "author": "Carlos Nunes", "initials": "CN", "role": "Professor", "time": "há 35 min", "topic": "HTML/CSS", "title": "Dica: teste a navegação usando só o teclado", "body": "Semântica e foco visível ajudam mais pessoas a usar seu projeto.", "likes": 21, "respostas": []},
+    {"id": 3, "author": "Lia Ramos", "initials": "LR", "role": "Profissional IoT", "time": "há 1 h", "topic": "ESP32", "title": "Como escolher um GPIO para o sensor?", "body": "Consulte a função de cada pino e confirme o nível de tensão aceito pelo módulo.", "likes": 13, "respostas": []}
+  ]
+}

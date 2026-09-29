@@ -1,0 +1,17 @@
+{
+  "name": "coda-plataforma-educacional",
+  "version": "10.9.1",
+  "private": true,
+  "type": "module",
+  "description": "Coda Educacional 10.9.1 com rede social interativa sem dados demonstrativos ou informações fictícias.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check server.mjs && node --check db.mjs && node --check chat-service.mjs && node --check public-api.js && node --check platform.js && node --check admin.js && node --check lesson-content.js && node --check script.js && node --check scripts/package.mjs && node --check js/utils.js && node --check js/state.js && node --check js/analytics.js && node --check js/workspace-sync.js && node --check js/render/courses.js && node --check js/render/dashboard.js && node --check js/login.js && node --check js/pdf-reports.js && node --check js/lessons.js && node --check js/laboratory.js && node --check js/esp32.js && node --check js/esp32-circuit-logic.js && node --check js/esp32-ar.js && node --check js/tutor.js && node --check js/institution.js && node --check js/core.js",
+    "package": "node scripts/package.mjs"
+  },
+  "engines": {
+    "node": ">=22.5"
+  }
+}

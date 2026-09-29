@@ -1,0 +1,10 @@
+.login-screen{--login-accent:var(--role-accent)}
+.login-card{max-width:480px}
+.login-card label{font-size:.82rem;line-height:1.45}
+.login-card input:not([type="checkbox"]){min-height:48px;font-size:.92rem}
+.portal-switch button,.login-mode-switch button{min-height:42px;font-size:.78rem}
+.portal-switch button.active,.login-mode-switch button.active{background:var(--login-accent);color:#fff}
+.login-card .primary{min-height:50px;background:var(--login-accent);border-color:var(--login-accent)}
+.login-help{font-size:.78rem;line-height:1.55}
+body.teacher-login .login-screen{--login-accent:var(--purple)}
+body.admin-login .login-screen{--login-accent:var(--blue)}

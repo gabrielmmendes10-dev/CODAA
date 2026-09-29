@@ -1,0 +1,14 @@
+@media(max-width:900px){
+  .content{padding-bottom:92px}.mobile-nav{position:fixed;left:10px;right:10px;bottom:10px;z-index:70;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+  .mobile-nav button{display:grid;place-items:center;gap:2px;min-width:0;min-height:52px;padding:4px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:.68rem;font-weight:800}.mobile-nav button span{font-size:1rem}.mobile-nav button.active{background:var(--role-accent-soft);color:var(--role-accent)}
+  .course-grid,.path-grid,.dashboard-row,.student-hub-grid,.teacher-dashboard,.teacher-quick-grid,.admin-metrics,.admin-overview-grid,.teacher-tools-105,.review-grid,.review-recommendations,.teacher-intelligence-grid{grid-template-columns:1fr}
+  .lab-main{grid-template-columns:1fr;min-height:0}.editor{border-right:0}.code-wrap{height:400px}.output iframe,.output pre{height:360px}.lab-mobile-tabs{display:grid;grid-template-columns:1fr 1fr;margin:.6rem}.lab-mobile-tabs button{border:1px solid var(--line);background:var(--surface-2)}.lab-app[data-mobile-pane="editor"] .output,.lab-app[data-mobile-pane="output"] .editor{display:none}
+  .esp-workspace{grid-template-columns:1fr}.esp-scene{height:500px}.scene-controls button,.esp-signal-lab button{min-width:48px;min-height:48px}
+  .admin-user-row,.admin-class-list article,.student-directory-card,.risk-row,.admin-audit-row{display:grid;grid-template-columns:1fr;gap:.5rem}.admin-user-row>button{width:100%}
+  .diary-student-list{display:grid;gap:.65rem}.diary-student-list>article{display:grid;padding:.8rem;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.diary-student-list>article>*{display:block;padding:.35rem 0;border:0}
+}
+@media(max-width:560px){
+  .mobile-nav{left:5px;right:5px;bottom:5px}.mobile-nav button{font-size:.62rem}.top-actions{gap:5px}.student-greeting,.xp{display:none}.content{padding-inline:14px}.hero{min-height:0;padding:2rem 0}.hero h1{font-size:clamp(2.2rem,12vw,3.4rem)}
+  .lesson-reader{padding:1rem}.lesson-goals,.lesson-roadmap,.mastery-rubric,.academic-resource-grid{grid-template-columns:1fr}.orbit-card{transform:scale(.82)}.tutor-chat{bottom:76px}
+  .assessment-calendar{grid-template-columns:repeat(2,1fr)}
+}

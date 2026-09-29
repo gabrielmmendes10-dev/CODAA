@@ -1,0 +1,46 @@
+CODA 10.5.0 - AJUDA PARA ABRIR NO WINDOWS
+==========================================
+
+O iniciador desta versao nao instala programas e nao pede permissao de administrador.
+Ele apenas procura um Node.js ja instalado, inicia o servidor local e abre o navegador.
+
+1. SE O WINDOWS BLOQUEOU O ZIP BAIXADO
+
+Use estes passos somente se o ZIP for exatamente o Coda baixado desta conversa:
+
+- Volte ao arquivo Coda-v10.5.0-Institucional.zip, antes de extrai-lo.
+- Clique nele com o botao direito e escolha Propriedades.
+- Na aba Geral, se existir a opcao Desbloquear, marque-a e clique em Aplicar.
+- Extraia o ZIP novamente para uma pasta comum, como Documentos.
+- Abra a pasta extraida e clique duas vezes em ABRIR-CODA-1-CLIQUE.bat.
+
+Nao desbloqueie arquivos desconhecidos ou recebidos de fontes que voce nao confia.
+
+2. SE APARECER "BLOQUEADO PELO ADMINISTRADOR"
+
+O computador possui uma regra da escola, empresa ou responsavel. Nao tente contornar
+essa protecao. Mostre este arquivo ao administrador e solicite autorizacao para:
+
+- executar arquivos .bat da pasta do Coda;
+- executar o Node.js localmente;
+- usar o endereco local http://127.0.0.1:8080.
+
+3. SE APARECER "NODE.JS NAO FOI ENCONTRADO"
+
+Em um computador pessoal, instale o Node.js 22 ou mais recente pelo site oficial:
+https://nodejs.org/
+
+Em um computador escolar ou empresarial, solicite a instalacao ao administrador.
+O Coda nao faz mais instalacao automatica pelo winget.
+
+4. ABERTURA MANUAL PARA DIAGNOSTICO
+
+Se o Node.js ja estiver instalado:
+
+- abra a pasta do Coda;
+- clique na barra de endereco do Explorador, digite cmd e pressione Enter;
+- execute: node server.mjs
+- mantenha a janela aberta e acesse http://127.0.0.1:8080 no navegador.
+
+Se esse comando tambem for bloqueado, a liberacao precisa ser feita pelo administrador
+do computador.

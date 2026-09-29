@@ -1,0 +1,6 @@
+body[data-portal="aluno"] .brand-icon{background:var(--role-accent)}
+.student-review-panel{margin:1rem 0 1.5rem;padding:1.15rem;border:1px solid var(--line);border-radius:15px;background:var(--surface)}
+.student-review-panel>div:first-child{display:flex;flex-direction:column;gap:.15rem;margin-bottom:.8rem}.student-review-panel h2,.student-review-panel p{margin:0}
+.review-recommendations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}.review-recommendations button{display:grid;gap:.2rem;padding:.85rem;border:1px solid var(--line);border-radius:11px;background:var(--surface-2);text-align:left}.review-recommendations span{color:var(--muted);font-size:.8rem}.review-recommendations b{color:var(--role-accent);font-size:.78rem}
+.course-certificate-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}.course-certificate-actions button{min-height:40px}
+.lab-mobile-tabs{display:none}

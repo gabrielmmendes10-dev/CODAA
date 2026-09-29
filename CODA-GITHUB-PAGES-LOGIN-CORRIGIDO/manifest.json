@@ -1,0 +1,12 @@
+{
+  "name": "Coda Educacional v10 SQLite",
+  "short_name": "coda",
+  "description": "Plataforma educacional com administração, professor, aluno, conteúdo completo e banco SQLite local.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f4fb",
+  "theme_color": "#5b3cc4",
+  "orientation": "any"
+}

@@ -1,0 +1,135 @@
+/* Tema claro oficial. Nenhum outro módulo deve redefinir [data-theme="light"]. */
+[data-theme="light"]{
+  color-scheme:light;
+  --brand:#4d3b8f;
+  --bg:#ede9e2;
+  --surface:#f7f4ee;
+  --surface-2:#eaf0eb;
+  --surface-3:#ece7f3;
+  --line:#c9c2b8;
+  --line-soft:#ddd7ce;
+  --text:#17171b;
+  --muted:#3f3b43;
+  --muted-2:#4b4650;
+  --lime:#1f7252;
+  --lime-dark:#185c42;
+  --blue:#216795;
+  --purple:#6047aa;
+  --orange:#9a4d18;
+  --red:#a33249;
+  --shadow:0 12px 30px rgba(35,31,40,.10);
+  background:var(--bg)
+}
+
+/* O perfil padrão de acessibilidade não pode substituir a paleta oficial. */
+html[data-theme="light"][data-color-vision="default"]{
+  --green:#1f7252;
+  --lime:#1f7252;
+  --lime-dark:#185c42;
+  --focus:#1f7252
+}
+
+[data-theme="light"] body{
+  background:radial-gradient(circle at 84% 7%,#e4edf2 0,transparent 28%),linear-gradient(145deg,#f1eee8,var(--bg));
+}
+
+/* O alto contraste é aplicado no body; este seletor corrige a herança no tema claro. */
+[data-theme="light"] body.high-contrast{
+  --muted:#2d333b;
+  --muted-2:#363c45;
+  --line:#827b71;
+  --line-soft:#aaa297
+}
+
+/* Navegação: superfícies brancas, texto escuro e acento específico de cada portal. */
+[data-theme="light"] .sidebar{background:#ffffff;border-color:#d8d2c9;color:#17171b;box-shadow:8px 0 24px rgba(35,31,40,.08)}
+[data-theme="light"] .topbar{background:rgba(255,255,255,.96);border-color:#d8d2c9;color:#17171b;box-shadow:0 5px 16px rgba(35,31,40,.07)}
+[data-theme="light"] .sidebar :is(.brand,.brand strong,.profile strong){color:#17171b}
+[data-theme="light"] .sidebar :is(.brand small,.nav-label,.profile small,.teacher-sidebar-card small,.teacher-sidebar-card p,.streak-card small,.streak-card p){color:#514c56}
+[data-theme="light"] .sidebar .brand-icon{background:var(--role-accent);color:#ffffff;box-shadow:0 8px 20px color-mix(in srgb,var(--role-accent) 20%,transparent)}
+[data-theme="light"] .sidebar .avatar{background:var(--role-accent-soft);color:var(--role-accent)}
+[data-theme="light"] .sidebar .nav button{color:#302c34}
+[data-theme="light"] .sidebar .nav button:hover{background:#f1eee8;color:#17171b}
+[data-theme="light"] .sidebar .nav button.active,[data-theme="light"] .is-admin .sidebar .nav button.active{background:color-mix(in srgb,var(--role-accent) 12%,#ffffff);color:color-mix(in srgb,var(--role-accent) 82%,#000000);box-shadow:inset 3px 0 var(--role-accent)}
+[data-theme="light"] .sidebar .profile{background:#ffffff;border-color:#ddd7ce}
+[data-theme="light"] .sidebar :is(.logout-button,.nav button b){border-color:#cbc4bb;background:#f1eee8;color:#302c34}
+[data-theme="light"] :is(.admin-badge,.admin-metrics article>span,.admin-class-list article>span,.competency-grid header>span){background:var(--role-accent-soft);color:var(--role-accent)}
+
+[data-theme="light"] .topbar :is(.student-greeting,.teacher-topbar-title strong){color:#17171b}
+[data-theme="light"] .topbar .teacher-topbar-title small{color:#4b4650}
+[data-theme="light"] .topbar :is(.menu-button,.notification-button,.accessibility-button,.theme-toggle){border-color:#cbc4bb;background:#f3f0ea;color:#17171b}
+[data-theme="light"] .topbar .search{border-color:#cbc4bb;background:#f3f0ea;color:#17171b}
+[data-theme="light"] .topbar .search input{background:transparent;color:#17171b}
+[data-theme="light"] .topbar .search input::placeholder{color:#5a5560}
+[data-theme="light"] .topbar .search kbd{border-color:#c4bdb4;background:#ffffff;color:#49444e}
+[data-theme="light"] .theme-toggle .sun{background:#d9b552;color:#2b2200;box-shadow:none}
+[data-theme="light"] .theme-toggle .moon{background:transparent;color:#4b4650}
+
+/* Botões e estados ativos sempre usam texto branco sobre os acentos AA. */
+[data-theme="light"] .primary{background:var(--role-accent);border-color:var(--role-accent);color:#ffffff}
+[data-theme="light"] .primary:hover{background:color-mix(in srgb,var(--role-accent) 86%,#000000);border-color:color-mix(in srgb,var(--role-accent) 86%,#000000);color:#ffffff}
+[data-theme="light"] :is(.filters button.active,.video-filters button.active,.feed-filters button.active,.lesson-link.done>span,.esp-signal-lab button.active){background:var(--lime);border-color:var(--lime);color:#ffffff}
+
+/* Formulários e superfícies de conteúdo. */
+[data-theme="light"] :is(input,select,textarea){color-scheme:light;background-color:#fbfaf6;border-color:var(--line);color:var(--text)}
+[data-theme="light"] :is(input,textarea)::placeholder{color:#5a5560}
+[data-theme="light"] :is(.learning-card,.dashboard-row article,.path-grid button,.course-card,.lesson-reader,.player-shell,.video-queue,.platform-card,.teacher-editor,.admin-card,.student-review-panel,.student-competency-card,.teacher-dashboard article,.teacher-quick-card,.ask-card,.post,.quiz-shell,.esp-panel,.three-d-programmer,.component-inspector,.pin-guide>div,.lab-support article){background:var(--surface);border-color:var(--line-soft);box-shadow:0 6px 18px rgba(35,31,40,.055)}
+[data-theme="light"] :is(.admin-user-row,.risk-row,.platform-list-item,.review-card,.adaptive-options label,.lesson-goals div,.quiz-options button,.esp-projects button,.wiring-card span,.teacher-3d-templates button,.prototype-toolbar button){background:var(--surface-2);border-color:var(--line-soft)}
+[data-theme="light"] :is(.dashboard-row,.admin-metrics,.teacher-tools-105,.student-competency-grid) article:nth-child(4n+1),[data-theme="light"] .path-grid button:nth-child(4n+1){box-shadow:inset 3px 0 #31835f}
+[data-theme="light"] :is(.dashboard-row,.admin-metrics,.teacher-tools-105,.student-competency-grid) article:nth-child(4n+2),[data-theme="light"] .path-grid button:nth-child(4n+2){box-shadow:inset 3px 0 #347cad}
+[data-theme="light"] :is(.dashboard-row,.admin-metrics,.teacher-tools-105,.student-competency-grid) article:nth-child(4n+3),[data-theme="light"] .path-grid button:nth-child(4n+3){box-shadow:inset 3px 0 #bb6a32}
+[data-theme="light"] :is(.dashboard-row,.admin-metrics,.teacher-tools-105,.student-competency-grid) article:nth-child(4n+4),[data-theme="light"] .path-grid button:nth-child(4n+4){box-shadow:inset 3px 0 #7559be}
+
+/* Login e cadastro: apresentação escura à esquerda e formulário claro à direita. */
+[data-theme="light"] .login-screen{background:var(--bg);color:var(--text)}
+[data-theme="light"] .login-screen .login-visual,
+[data-theme="light"] body.teacher-login .login-screen .login-visual,
+[data-theme="light"] body.admin-login .login-screen .login-visual{background:radial-gradient(circle at 74% 28%,color-mix(in srgb,var(--login-accent) 23%,transparent),transparent 34%),linear-gradient(145deg,#111827,#090d17);border-color:#263044;color:#f7f8fc}
+[data-theme="light"] .login-screen .login-brand{color:#f7f8fc}
+[data-theme="light"] .login-screen .login-brand b{background:var(--login-accent);color:#ffffff}
+[data-theme="light"] .login-screen .login-copy h1{color:#f7f8fc;text-shadow:0 2px 18px rgba(0,0,0,.18)}
+[data-theme="light"] .login-screen .login-copy h1 em{color:#55c99a}
+[data-theme="light"] body.teacher-login .login-screen .login-copy h1 em{color:#b6a3f2}
+[data-theme="light"] body.admin-login .login-screen .login-copy h1 em{color:#83bee6}
+[data-theme="light"] .login-screen .login-copy>p{color:#bac4d3}
+[data-theme="light"] .login-screen .login-features span{border-color:#344055;background:rgba(15,23,38,.78);color:#e4eaf2}
+[data-theme="light"] .login-screen .login-orbit span{background:#111a2a;color:#dfe7f2}
+[data-theme="light"] .login-screen .login-panel{background:radial-gradient(circle at 100% 0,#e8e3f1 0,transparent 34%),var(--bg)}
+[data-theme="light"] .login-screen .login-card{background:var(--surface);border-color:var(--line);box-shadow:0 22px 58px rgba(35,31,40,.15)}
+[data-theme="light"] .login-screen .login-kicker{color:var(--login-accent)}
+[data-theme="light"] .login-screen .login-card h2{color:var(--text)}
+[data-theme="light"] .login-screen .login-card>p{color:#38353c}
+[data-theme="light"] .login-screen .login-card>label:not(.remember-row){color:#302d33}
+[data-theme="light"] .login-screen :is(.portal-switch,.login-mode-switch){background:var(--surface-3);border-color:#cbc3d2}
+[data-theme="light"] .login-screen :is(.portal-switch,.login-mode-switch) button{color:#3f3b44}
+[data-theme="light"] .login-screen :is(.portal-switch,.login-mode-switch) button.active{background:var(--login-accent);color:#ffffff;box-shadow:0 7px 18px color-mix(in srgb,var(--login-accent) 22%,transparent)}
+[data-theme="light"] .login-screen .login-card input:not([type="checkbox"]){background:#fffdf8;border-color:#bdb5aa;color:var(--text)}
+[data-theme="light"] .login-screen .login-card input:not([type="checkbox"])::placeholder{color:#5e5962}
+[data-theme="light"] .login-screen .login-card input:not([type="checkbox"]):focus{background:#fffdf8;border-color:var(--login-accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--login-accent) 14%,transparent)}
+[data-theme="light"] .login-screen .remember-row{color:#403c44}
+[data-theme="light"] .login-screen .login-card>small{color:#514d55}
+[data-theme="light"] .login-screen .login-accessibility{border-color:#bbb2c5;background:#eee9f4;color:#3f3268}
+[data-theme="light"] .login-screen .login-accessibility:hover{border-color:var(--login-accent);background:color-mix(in srgb,var(--login-accent) 8%,var(--surface));color:var(--login-accent)}
+
+/* Orbitais da apresentação mantêm volume sem perder contraste. */
+[data-theme="light"] .hero:before{background:radial-gradient(circle,color-mix(in srgb,var(--brand) 7%,transparent),transparent 66%)}
+[data-theme="light"] .orbit-core{background:color-mix(in srgb,var(--lime) 7%,var(--surface));box-shadow:0 10px 26px rgba(35,31,40,.10)}
+[data-theme="light"] .orbit-card .node{background:var(--surface);border-color:var(--line);box-shadow:0 6px 14px rgba(35,31,40,.10)}
+
+/* A IDE e exemplos de código são deliberadamente escuros nos dois temas. */
+[data-theme="light"] :is(.code-example,.lab-app){color-scheme:dark;background:#090e18;border-color:#29364c;color:#dce6f5}
+[data-theme="light"] .code-example header{background:#0b111d;border-color:#29364c;color:#aeb9c9}
+[data-theme="light"] .code-example pre{background:#080c14;color:#dce6f5}
+[data-theme="light"] .lab-app :is(.lab-bar,.editor-head,.output-tabs){background:#0b111d;border-color:#29364c;color:#c0cad8}
+[data-theme="light"] .lab-app .editor{background:#090e18;border-color:#29364c}
+[data-theme="light"] .lab-app .line-numbers{background:#070b13;color:#71809a}
+[data-theme="light"] .lab-app .code-wrap textarea{color-scheme:dark;background:#090e18;border-color:#29364c;color:#dce6f5}
+[data-theme="light"] .lab-app .lab-bar select{color-scheme:dark;background:#121b2b;border-color:#35445b;color:#e5ebf3}
+[data-theme="light"] .lab-app .output-tabs button{background:transparent;color:#9ba8ba}
+[data-theme="light"] .lab-app .output-tabs button.active{color:#b9ff3b}
+[data-theme="light"] .lab-app .output pre{background:#080c14;color:#dce6f5}
+
+/* Laboratórios ESP32 usam palco escuro; painéis e formulários continuam claros. */
+[data-theme="light"] .esp-scene{background:radial-gradient(circle at 50% 35%,rgba(86,184,255,.13),transparent 34%),linear-gradient(180deg,#0c1523,#070c14);border-color:#31415a}
+[data-theme="light"] .esp-scene .scene-hint{color:#c7d1df}
+[data-theme="light"] .prototype-stage output{background:rgba(10,18,30,.92);border-color:#31516a;color:#8bd4ff}

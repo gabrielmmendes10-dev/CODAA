@@ -1,0 +1,14 @@
+.login-screen .login-orbit{animation:loginOrbitSlowStable 42s linear infinite!important;animation-play-state:running!important;transform:translate3d(0,0,0);transform-origin:50% 50%;backface-visibility:hidden;will-change:transform}
+.login-screen .login-orbit>span,.login-screen .login-orbit>b{animation:loginOrbitKeepUprightStable 42s linear infinite!important;animation-play-state:running!important;backface-visibility:hidden;will-change:transform}
+.orbit-plane-inner{--orbit-duration:48s;--orbit-half-delay:-24s}
+.orbit-plane-outer{--orbit-duration:64s;--orbit-half-delay:-32s}
+.orbit-runner{animation:orbitRunnerStable var(--orbit-duration) linear infinite both!important;animation-play-state:running!important;backface-visibility:hidden;will-change:transform}
+.orbit-anchor{animation:orbitCounterStable var(--orbit-duration) linear infinite both!important;animation-play-state:running!important;backface-visibility:hidden;will-change:transform}
+.orbit-plane-outer .orbit-runner,.orbit-plane-outer .orbit-anchor{animation-direction:reverse!important}
+.inner-runner-b,.inner-runner-b>.orbit-anchor,.outer-runner-b,.outer-runner-b>.orbit-anchor{animation-delay:var(--orbit-half-delay)!important}
+.orbit-card .node{box-shadow:0 8px 20px rgba(0,0,0,.12);backface-visibility:hidden;transform:scaleY(var(--orbit-unsquash)) translateZ(0)}
+@keyframes loginOrbitSlowStable{from{transform:translate3d(0,0,0) rotate(0deg)}to{transform:translate3d(0,0,0) rotate(360deg)}}
+@keyframes loginOrbitKeepUprightStable{from{transform:translate3d(0,0,0) rotate(0deg)}to{transform:translate3d(0,0,0) rotate(-360deg)}}
+@keyframes orbitRunnerStable{from{transform:translateZ(0) rotate(0deg)}to{transform:translateZ(0) rotate(360deg)}}
+@keyframes orbitCounterStable{from{transform:translate3d(-50%,-50%,0) rotate(0deg)}to{transform:translate3d(-50%,-50%,0) rotate(-360deg)}}
+.reduce-motion :is(.login-orbit,.login-orbit>span,.login-orbit>b,.orbit-runner,.orbit-anchor){animation:none!important;animation-play-state:paused!important}

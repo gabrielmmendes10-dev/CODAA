@@ -1,0 +1,260 @@
+
+
+/* ESP32 Circuit Lab: keep the palette, workbench and guide in distinct columns. */
+#espProgramPanel .three-d-builder {
+  display: grid;
+  grid-template-columns: minmax(210px, 250px) minmax(420px, 1fr) minmax(210px, 250px);
+  grid-template-areas: "library stage inspector";
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+}
+
+#espProgramPanel .programmer-library,
+#espProgramPanel .component-inspector {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+
+#espProgramPanel .programmer-library { grid-area: library; }
+#espProgramPanel .prototype-stage {
+  grid-area: stage;
+  width: 100%;
+  min-width: 0;
+  min-height: 590px;
+}
+#espProgramPanel .component-inspector { grid-area: inspector; }
+
+#espProgramPanel .library-heading {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+#espProgramPanel .library-heading .kicker {
+  color: var(--lime);
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+#espProgramPanel .library-heading strong { font-size: 16px; }
+#espProgramPanel .library-heading small,
+#espProgramPanel .library-hint {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+#espProgramPanel .component-palette {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+#espProgramPanel .palette-group {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+#espProgramPanel .palette-group-title {
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+#espProgramPanel .component-palette button {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 2px;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 7px 9px;
+  text-align: left;
+  line-height: 1.25;
+}
+#espProgramPanel .component-palette button > span,
+#espProgramPanel .component-palette button > small {
+  grid-column: 2;
+  min-width: 0;
+  text-align: left;
+}
+#espProgramPanel .component-palette button > span {
+  font-size: 11px;
+  font-weight: 850;
+}
+#espProgramPanel .component-palette button > small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#espProgramPanel .library-hint {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 1250px) {
+  #espProgramPanel .three-d-builder {
+    grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);
+    grid-template-areas: "library stage" "inspector inspector";
+  }
+}
+@media (max-width: 850px) {
+  #espProgramPanel .three-d-builder {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "library" "stage" "inspector";
+  }
+  #espProgramPanel .prototype-stage { min-height: 560px; }
+  #espProgramPanel .component-palette {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+@media (max-width: 520px) {
+  #espProgramPanel .component-palette { grid-template-columns: 1fr; }
+  #espProgramPanel .prototype-stage { min-height: 500px; }
+}
+
+/* Circuit Lab refresh: predictable columns, readable controls and anchored terminals. */
+#espProgramPanel { min-width: 0; }
+#espProgramPanel .three-d-program-head,
+#espProgramPanel .prototype-toolbar,
+#espProgramPanel .three-d-builder { min-width: 0; }
+#espProgramPanel .three-d-program-head { align-items: center; flex-wrap: wrap; }
+#espProgramPanel .three-d-program-head > div { min-width: 0; }
+#espProgramPanel .prototype-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start;
+  gap: 9px; padding: 12px; border: 1px solid var(--line); border-radius: 14px;
+  background: var(--surface-2);
+}
+#espProgramPanel .prototype-toolbar > div { min-width: 150px; margin-right: auto; }
+#espProgramPanel .prototype-toolbar > span { color: var(--muted); font-size: 11px; }
+#espProgramPanel .prototype-toolbar button { min-height: 40px; padding: 9px 12px; font-size: 11px; }
+#espProgramPanel .three-d-builder {
+  display: grid; grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(220px, 260px);
+  grid-template-areas: "library stage inspector"; align-items: stretch; gap: 14px;
+}
+#espProgramPanel .programmer-library,
+#espProgramPanel .component-inspector {
+  min-width: 0; align-self: stretch; padding: 16px; border: 1px solid var(--line);
+  border-radius: 16px; background: var(--surface-2);
+}
+#espProgramPanel .component-palette { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 0; }
+#espProgramPanel .palette-group { display: grid; gap: 7px; min-width: 0; }
+#espProgramPanel .component-palette button {
+  display: grid; grid-template-columns: 24px minmax(0, 1fr); grid-template-rows: auto auto;
+  align-items: center; gap: 2px 8px; width: 100%; min-height: 45px; padding: 7px 9px; text-align: left;
+}
+#espProgramPanel .component-palette button > span,
+#espProgramPanel .component-palette button > small { grid-column: 2; min-width: 0; text-align: left; }
+#espProgramPanel .component-palette button > small { color: var(--muted); font-size: 10px; }
+#espProgramPanel .prototype-stage {
+  position: relative; isolation: isolate; min-width: 0; min-height: 680px; padding: 0;
+  overflow: hidden; border: 1px solid #29445a; border-radius: 18px; perspective: none;
+  background: radial-gradient(ellipse at 50% 38%, #12312d 0, #0b1a22 44%, #07101a 100%);
+}
+#espProgramPanel .prototype-stage::after { opacity: .45; }
+#espProgramPanel .prototype-board-label { top: 16px; left: 18px; font-size: 11px; }
+#espProgramPanel .prototype-esp {
+  left: 50%; top: 37%; width: 176px; height: 270px;
+  transform: translate(-50%, -50%); transition: none;
+}
+#espProgramPanel .prototype-board { border-radius: 16px; transform: none; box-shadow: inset 0 0 0 5px #061a1533, 0 15px 35px #0009; }
+#espProgramPanel .prototype-main-chip { transform: translate(-50%, -50%); }
+#espProgramPanel .prototype-esp .prototype-usb-port { top: -12px; }
+#espProgramPanel .prototype-pin-bank-left,
+#espProgramPanel .prototype-pin-bank-right {
+  top: 12px; bottom: 12px; width: 82px; transform: none; z-index: 9;
+}
+#espProgramPanel .prototype-pin-bank-left { left: -73px; align-items: flex-end; }
+#espProgramPanel .prototype-pin-bank-right { right: -73px; align-items: flex-start; }
+#espProgramPanel .prototype-board-terminal {
+  width: 72px; min-height: 22px; padding: 3px 4px; border-radius: 6px;
+  font-size: 9px; box-shadow: 0 2px 5px #0007; touch-action: none;
+}
+#espProgramPanel .prototype-component-wrap {
+  position: absolute; left: var(--component-x); top: var(--component-y); z-index: 7;
+  display: grid; justify-items: center; gap: 5px; width: 136px;
+  transform: translate(-50%, -50%); pointer-events: none;
+}
+#espProgramPanel .prototype-component {
+  position: relative; inset: auto; display: block; width: 120px; height: 86px; padding: 0;
+  transform: rotate(var(--component-rotation)) scale(var(--component-scale)); transform-origin: center;
+  pointer-events: auto; cursor: grab; touch-action: none;
+}
+#espProgramPanel .prototype-component strong { bottom: 19px; font-size: 10px; }
+#espProgramPanel .prototype-component small { bottom: 6px; font-size: 8px; }
+#espProgramPanel .prototype-component em {
+  position: absolute; top: 4px; left: 6px; right: 6px; color: #d8e7ef;
+  font-size: 8px; font-style: normal; font-weight: 750; text-align: center;
+}
+#espProgramPanel .prototype-component i { top: 18px; width: 23px; height: 23px; }
+#espProgramPanel .prototype-terminals {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; width: 100%;
+  pointer-events: auto;
+}
+#espProgramPanel .prototype-terminals button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  min-width: 46px; min-height: 24px; padding: 3px 6px; border: 1px solid #607482;
+  border-radius: 6px; background: #1b2a35; color: #e5edf2; font: 800 9px/1 "DM Mono", monospace;
+  cursor: crosshair; touch-action: none;
+}
+#espProgramPanel .prototype-terminals button i { width: 7px; height: 7px; border-radius: 50%; background: #e3bd52; }
+#espProgramPanel .prototype-terminals button.selected,
+#espProgramPanel .prototype-terminals button.dragging-terminal { border-color: #b9ff3b; background: #354923; }
+#espProgramPanel #prototypeComponents { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
+#espProgramPanel .prototype-wire-layer { z-index: 6; pointer-events: none; }
+#espProgramPanel .prototype-wire-layer path { stroke-width: 3.5; pointer-events: stroke; }
+#espProgramPanel #prototypeOutput {
+  right: 14px; bottom: 14px; left: 14px; max-height: 78px; padding: 10px 12px;
+  font-size: 11px; line-height: 1.45; white-space: normal;
+}
+#espProgramPanel .library-hint,
+#espProgramPanel .inspector-tip,
+#espProgramPanel .inspector-steps span { color: var(--muted); font-size: 11px; line-height: 1.5; }
+#espProgramPanel .inspector-steps { display: grid; gap: 10px; padding-left: 20px; }
+#espProgramPanel .inspector-steps li::marker { color: var(--lime); font-weight: 900; }
+#espProgramPanel .gpio-legend { display: grid; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+#espProgramPanel .component-inspector label { font-size: 11px; }
+#espProgramPanel .teacher-3d-templates { min-width: 0; }
+@media (max-width: 1350px) {
+  #espProgramPanel .three-d-builder { grid-template-columns: minmax(200px, 230px) minmax(0, 1fr); grid-template-areas: "library stage" "inspector inspector"; }
+}
+@media (max-width: 950px) {
+  #espProgramPanel .three-d-builder { grid-template-columns: minmax(0, 1fr); grid-template-areas: "library" "stage" "inspector"; }
+  #espProgramPanel .component-palette { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #espProgramPanel .prototype-stage { min-height: 640px; }
+  #espProgramPanel .programmer-library { padding: 14px; }
+  #espProgramPanel .palette-group:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  #espProgramPanel .three-d-programmer { padding: 14px; }
+  #espProgramPanel .prototype-toolbar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #espProgramPanel .prototype-toolbar > div,
+  #espProgramPanel .prototype-toolbar > span { grid-column: 1 / -1; }
+  #espProgramPanel .prototype-toolbar button { width: 100%; min-width: 0; white-space: normal; }
+  #espProgramPanel .prototype-stage { min-height: 620px; }
+  #espProgramPanel .prototype-esp { top: 34%; transform: translate(-50%, -50%) scale(.86); }
+  #espProgramPanel .prototype-component-wrap { width: 120px; }
+  #espProgramPanel .prototype-component { width: 108px; height: 78px; }
+  #espProgramPanel .prototype-component-wrap[style*="--component-x:22%"] { left: 22%; }
+  #espProgramPanel #prototypeOutput { right: 8px; bottom: 8px; left: 8px; max-height: 70px; font-size: 10px; }
+  #espProgramPanel .teacher-3d-templates { grid-template-columns: 1fr; }
+}
+
+/* CODA WebXR / Realidade Aumentada */
+#espARPanel{display:grid;gap:16px;padding:4px 0 24px}.ar-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:16px}.ar-card,.ar-guide{border:1px solid var(--line);border-radius:18px;background:var(--surface-2);padding:20px}.ar-card h2,.ar-guide h3{margin:4px 0 8px}.ar-card p,.ar-guide p{color:var(--muted);line-height:1.55}.ar-mode-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.ar-mode-picker button{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:center;text-align:left;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:inherit}.ar-mode-picker button>span{font-size:25px}.ar-mode-picker button div{display:grid;gap:2px}.ar-mode-picker button small{color:var(--muted)}.ar-mode-picker button.active{border-color:var(--lime);box-shadow:0 0 0 2px color-mix(in srgb,var(--lime) 20%,transparent)}.ar-actions{display:flex;gap:9px;flex-wrap:wrap}.ar-status{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:14px}.ar-status>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--surface-3);font-weight:900}.ar-status>div{display:grid;gap:3px}.ar-status small{color:var(--muted)}.ar-status.ok{border-color:#4d8b61}.ar-status.warn{border-color:#a37d38}.ar-guide ol{margin:14px 0 0;padding-left:20px;display:grid;gap:10px;color:var(--muted)}.ar-guide b{color:var(--text)}.ar-tools{display:grid;gap:12px;border:1px solid var(--line);border-radius:18px;background:var(--surface-2);padding:16px}.ar-tool-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.ar-tool-row>strong{margin-right:auto}.ar-component-list{display:flex;gap:7px;flex-wrap:wrap}.ar-component-list span{padding:6px 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}.ar-note{padding:12px 14px;border-left:3px solid var(--lime);background:var(--surface-2);color:var(--muted);font-size:12px;line-height:1.5}#xrCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:999999}@media(max-width:820px){.ar-hero{grid-template-columns:1fr}.ar-mode-picker{grid-template-columns:1fr}}
+
+/* CODA RA no celular: WebXR quando disponível + fallback pela câmera */
+.mobile-ar-panel{display:grid;gap:16px;padding:4px 0 24px}.mobile-ar-intro{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--surface-2)}.mobile-ar-intro h2{margin:4px 0 8px}.mobile-ar-intro p{margin:0;max-width:820px;color:var(--muted);line-height:1.55}.mobile-ar-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.mobile-ar-steps>div{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2)}.mobile-ar-steps b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--lime);color:#142009}.mobile-ar-steps span{display:grid;gap:4px}.mobile-ar-steps small{color:var(--muted);line-height:1.35}
+.mobile-ar-overlay{position:fixed;inset:0;z-index:1000001;background:#050708;overflow:hidden;touch-action:none}.mobile-ar-overlay[hidden]{display:none!important}.mobile-ar-overlay video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#111}.mobile-ar-topbar{position:absolute;top:0;left:0;right:0;z-index:7;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:max(14px,env(safe-area-inset-top)) 16px 12px;background:linear-gradient(#000b,#0000);color:#fff}.mobile-ar-topbar>div{display:grid;gap:3px}.mobile-ar-topbar small{color:#dfe7ec}.mobile-ar-topbar button{width:42px;height:42px;border:1px solid #ffffff55;border-radius:50%;background:#111b;color:#fff;font-size:20px}.mobile-ar-stage{position:absolute;inset:0;z-index:3}.mobile-ar-reticle{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);display:grid;place-items:center;gap:10px;color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em;text-shadow:0 1px 5px #000}.mobile-ar-reticle i{display:block;width:116px;height:58px;border:2px solid #b9ff3b;border-radius:50%;box-shadow:0 0 0 1px #0008,0 0 24px #b9ff3b55}.mobile-ar-board{position:absolute;left:50%;top:58%;width:170px;height:285px;border:3px solid #244c38;border-radius:13px;background:linear-gradient(145deg,#12543b,#0b3528);box-shadow:0 18px 30px #0008,0 0 0 2px #7cc89b55 inset;transform-origin:center;touch-action:none;user-select:none;color:#d9efe3;display:grid;place-items:center;align-content:end;padding-bottom:18px;gap:3px}.mobile-ar-board[hidden]{display:none!important}.mobile-ar-board>strong{font-size:13px;letter-spacing:.04em}.mobile-ar-board>span{font-size:9px;opacity:.8}.mobile-ar-usb{position:absolute;top:-12px;left:50%;width:62px;height:32px;transform:translateX(-50%);border:3px solid #90999f;border-radius:6px;background:#c5cbd0;box-shadow:inset 0 0 0 5px #6d777d}.mobile-ar-chip{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);width:86px;height:74px;border-radius:7px;background:#171d1c;border:2px solid #38443f;display:grid;place-items:center;align-content:center;color:#e8eeee;box-shadow:0 5px 10px #0007}.mobile-ar-chip small{font-size:8px}.mobile-ar-chip b{font-size:19px}.mobile-ar-antenna{position:absolute;top:42px;left:50%;transform:translateX(-50%);width:90px;height:54px;border-radius:7px;background:repeating-linear-gradient(90deg,#c2a65c 0 5px,#b3913e 5px 8px);opacity:.9}.mobile-ar-led{position:absolute;right:22px;bottom:34px;width:12px;height:12px;border-radius:50%;background:#b9ff3b;box-shadow:0 0 12px #b9ff3b}.mobile-pins{position:absolute;top:26px;bottom:26px;width:16px;background:repeating-linear-gradient(to bottom,#dcb04e 0 7px,transparent 7px 16px)}.mobile-pins.left{left:-10px}.mobile-pins.right{right:-10px}.mobile-ar-controls{position:absolute;left:50%;bottom:max(16px,env(safe-area-inset-bottom));z-index:8;transform:translateX(-50%);display:flex;gap:8px;padding:8px;border:1px solid #ffffff33;border-radius:999px;background:#091015cc;backdrop-filter:blur(10px)}.mobile-ar-controls button{min-width:44px;height:44px;padding:0 12px;border:1px solid #ffffff2b;border-radius:999px;background:#18242b;color:#fff;font-weight:800}.mobile-ar-open body{overflow:hidden}
+@media(max-width:820px){.mobile-ar-intro{align-items:stretch;flex-direction:column}.mobile-ar-intro .primary{width:100%}.mobile-ar-steps{grid-template-columns:1fr 1fr}.esp-mode-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.mobile-ar-steps{grid-template-columns:1fr}.mobile-ar-board{width:132px;height:222px}.mobile-ar-controls{width:calc(100% - 20px);justify-content:center}.mobile-ar-controls button{flex:1;min-width:0;padding:0 6px;font-size:12px}}

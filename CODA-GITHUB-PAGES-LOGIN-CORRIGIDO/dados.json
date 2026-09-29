@@ -1,0 +1,40 @@
+{
+  "plataforma": "coda",
+  "versao": "10.2.2",
+  "idioma": "pt-BR",
+  "recursos": {
+    "trilhas": 14,
+    "aulas": 98,
+    "atividades": 98,
+    "videos": 98,
+    "laboratorios": ["programação livre", "atividades das trilhas", "SQL com banco JSON", "ESP32 físico", "monitor serial", "simulador de sinais", "bancada de fios", "construtor 3D programável"],
+    "area_professor": ["portal próprio", "editar aulas aprofundadas", "trocar vídeos por aula", "publicar materiais acadêmicos", "criar e direcionar quizzes", "diário de notas e frequência", "rubricas por competência", "acompanhar rendimento local", "publicar desafios", "editar projetos 3D", "responder alunos", "importar e exportar banco JSON"],
+    "area_aluno": ["meta diária", "temporizador de foco", "aulas salvas", "anotações", "exercício final com correção", "indicadores por competência", "conquistas", "exportação do progresso"],
+    "avaliacoes": ["quiz por matéria e dificuldade", "quiz em todas as 14 matérias", "simulados integrados com tempo", "avaliações individuais do professor", "histórico de resultados"],
+    "biblioteca_academica": ["livros abertos", "PDFs públicos", "artigos técnicos", "documentações oficiais", "cursos universitários abertos"],
+    "acessibilidade": ["VLibras oficial tradicional", "transcrições", "legendas internas", "leitura de página", "navegação por teclado", "tema claro e escuro", "tamanho global do texto", "alto contraste", "redução de animações", "perfis para protanopia, deuteranopia e tritanopia", "modo monocromático"]
+  },
+  "categorias": [
+    { "id": "Web", "nome": "Base da Web" },
+    { "id": "Sistemas", "nome": "Sistemas e Lógica" },
+    { "id": "Aplicações", "nome": "Aplicações e Mobile" },
+    { "id": "Hardware", "nome": "Hardware e IoT" }
+  ],
+  "materias": [
+    { "id": "html", "nome": "HTML", "aulas": ["Como a Web e o HTML funcionam", "Estrutura base de um documento", "Textos, listas e links", "Imagens e mídia acessível", "HTML semântico", "Formulários e validação", "Projeto: página de portfólio"] },
+    { "id": "css", "nome": "CSS", "aulas": ["Seletores e cascata", "Cores, tipografia e unidades", "Box model sem mistério", "Flexbox na prática", "Grid responsivo", "Transições e animações", "Projeto: landing page adaptável"] },
+    { "id": "javascript", "nome": "JavaScript", "aulas": ["Valores e variáveis", "Condições e operadores", "Laços e repetição", "Funções e escopo", "Arrays e objetos", "DOM, eventos e formulários", "Projeto: lista de tarefas"] },
+    { "id": "typescript", "nome": "TypeScript", "aulas": ["Por que usar tipos", "Tipos primitivos e inferência", "Objetos, type e interface", "Unions e narrowing", "Funções tipadas", "Generics e utilitários", "Projeto: catálogo tipado"] },
+    { "id": "python", "nome": "Python", "aulas": ["Primeiro programa e variáveis", "Condições", "Laços for e while", "Funções e módulos", "Listas e dicionários", "Arquivos e tratamento de erros", "Projeto: organizador de estudos"] },
+    { "id": "c", "nome": "C", "aulas": ["Compilação e primeiro programa", "Tipos e operadores", "Condições e laços", "Funções e cabeçalhos", "Arrays e strings", "Ponteiros e memória", "Projeto: agenda no terminal"] },
+    { "id": "cplus", "nome": "C+", "aulas": ["Revisão de C", "Organização de código", "Structs e dados", "Ponteiros com segurança", "Da struct para a classe", "Entrada e saída comparadas", "Projeto: cadastro evolutivo"] },
+    { "id": "cpp", "nome": "C++", "aulas": ["Sintaxe moderna e namespaces", "Referências e const", "Classes e encapsulamento", "Herança e polimorfismo", "STL: vector e map", "RAII e smart pointers", "Projeto: sistema de biblioteca"] },
+    { "id": "csharp", "nome": "C#", "aulas": ["Projeto .NET e sintaxe", "Classes e propriedades", "Coleções e LINQ", "Interfaces e injeção", "Exceções e validação", "Async e await", "Projeto: API de tarefas"] },
+    { "id": "java", "nome": "Java", "aulas": ["JDK, JVM e primeiro programa", "Classes e objetos", "Encapsulamento", "Herança e interfaces", "Collections", "Exceções e arquivos", "Projeto: sistema escolar"] },
+    { "id": "react", "nome": "React", "aulas": ["Componentes e JSX", "Props e composição", "Estado com useState", "Eventos e formulários", "Listas e renderização condicional", "Efeitos e consumo de API", "Projeto: painel de estudos"] },
+    { "id": "reactnative", "nome": "React Native", "aulas": ["Ambiente e componentes nativos", "Estilos e Flexbox mobile", "Navegação entre telas", "Estado e formulários", "Listas com FlatList", "APIs e armazenamento local", "Projeto: app de hábitos"] },
+    { "id": "esp32", "nome": "ESP32", "aulas": ["Conhecendo a placa e os pinos", "Saída digital: LED", "Entrada digital: botão", "PWM e controle de brilho", "Leitura de sensores", "Wi-Fi e servidor web", "Projeto: estação conectada"] },
+    { "id": "sql", "nome": "SQL", "aulas": ["Bancos relacionais e tabelas", "SELECT e projeção de colunas", "WHERE e filtros", "ORDER BY e LIMIT", "INSERT e novos registros", "UPDATE e DELETE com segurança", "Projeto: banco da escola"] }
+  ],
+  "projetos_esp32": ["LED piscante", "Semáforo", "Sensor de distância", "Servidor Wi-Fi"]
+}

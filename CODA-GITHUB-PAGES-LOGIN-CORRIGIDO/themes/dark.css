@@ -1,0 +1,8 @@
+[data-theme="dark"]{
+  color-scheme:dark;--bg:#15111e;--surface:#211a30;--surface-2:#292039;--surface-3:#352a49;
+  --line:#493b60;--line-soft:#3b304f;--text:#f8f5ff;--muted:#c1b6d0;--muted-2:#a89ab9;
+  --lime:#b39bff;--lime-dark:#9679ec;--blue:#79c5ff;--purple:#c0adff;--orange:#ffad70;--red:#ff7e91;
+  --shadow:0 18px 48px rgba(0,0,0,.28)
+}
+[data-theme="dark"] .nav button.active{background:color-mix(in srgb,var(--role-accent) 22%,var(--surface));color:#fff;box-shadow:inset 3px 0 var(--role-accent)}
+[data-theme="dark"] :is(input,select,textarea){background-color:var(--surface-2);color:var(--text)}

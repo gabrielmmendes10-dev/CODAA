@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Coda Educacional com portais de administrador, professor e aluno, conteúdo completo e banco SQLite local.">
+  <meta name="theme-color" content="#5b3cc4">
+  <meta name="csp-nonce" content="">
+  <title>Coda Educacional | Versão 10.5 Institucional</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://vlibras.gov.br" crossorigin>
+  <link rel="dns-prefetch" href="//vlibras.gov.br">
+  <link rel="stylesheet" href="style.css?v=10.9.3">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+  <section class="login-screen" id="loginScreen" aria-labelledby="loginTitle">
+    <div class="login-visual">
+      <span class="login-brand"><b>C</b> coda</span>
+      <div class="login-copy">
+        <span class="eyebrow" id="loginEnvironment"><i></i> AMBIENTE DO ALUNO</span>
+        <h1 id="loginHeroTitle">Seu estudo, seus projetos,<br><em>seu progresso.</em></h1>
+        <p id="loginHeroText">Entre para acessar 14 trilhas, 98 aulas, laboratórios de código, vídeos e a bancada interativa do ESP32.</p>
+        <div class="login-features" id="loginFeatures"><span>✓ Aulas com contexto</span><span>✓ Prática no laboratório</span><span>✓ Progresso no navegador</span></div>
+      </div>
+      <div class="login-orbit"><span>HTML</span><span>JS</span><span>PY</span><span>ESP32</span><b>&lt;/&gt;</b></div>
+    </div>
+    <div class="login-panel">
+      <form class="login-card" id="studentLogin">
+        <div class="portal-switch" id="portalSwitch"><button class="active" type="button" data-login-portal="Aluno">Aluno</button><button type="button" data-login-portal="Professor">Professor</button><button type="button" data-login-portal="Admin">Administrador</button></div>
+        <div class="login-mode-switch" id="loginModeSwitch"><button class="active" type="button" data-login-mode="login">Entrar</button><button type="button" data-login-mode="register">Criar conta</button></div>
+        <span class="login-kicker">PORTAL DO ALUNO</span>
+        <h2 id="loginTitle">Entrar na coda</h2>
+        <p id="loginDescription">Use seus dados de estudante para continuar.</p>
+        <select id="loginRole" hidden aria-label="Tipo de acesso"><option value="Aluno">Aluno</option><option value="Professor">Professor</option><option value="Admin">Administrador</option></select>
+        <label id="loginNameRow" hidden>Nome completo<input id="loginName" minlength="2" maxlength="60" autocomplete="name" placeholder="Nome e sobrenome"></label>
+        <label id="studentRegistrationRow" hidden>Matrícula ou identificação escolar<input id="studentRegistration" minlength="3" maxlength="30" autocomplete="off" placeholder="Ex.: DS2026-014"></label>
+        <label>E-mail<input id="loginEmail" type="email" required autocomplete="email" placeholder="aluno@exemplo.com"></label>
+        <label>Senha<input id="loginPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="Mínimo de 6 caracteres"></label>
+        <label id="loginConfirmPasswordRow" hidden>Confirmar senha<input id="loginConfirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="Digite a mesma senha"></label>
+        <label id="teacherCodeRow" hidden><span id="accessCodeLabel">Código local do professor</span><input id="teacherCode" autocomplete="off" placeholder="Código de acesso"></label>
+        <label class="remember-row"><input id="loginRemember" type="checkbox" checked><span>Manter meu acesso neste navegador</span></label>
+        <button class="primary full" id="loginSubmit" type="submit">Entrar como aluno →</button>
+        <small id="loginHelp">Aluno pode entrar ou criar uma conta. Professor e administrador usam o próprio e-mail, uma senha e o código do perfil.</small>
+        <button class="login-accessibility" id="loginAccessibilityButton" type="button" aria-expanded="false" aria-controls="accessibilityPanel">Aa Acessibilidade e daltonismo</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="app-shell is-locked" id="appShell">
+    <aside class="sidebar" id="sidebar">
+      <button class="brand" data-view="inicio" aria-label="Ir ao início"><span class="brand-icon">C</span><span><strong>coda</strong><small>ESCOLA DE TECNOLOGIA</small></span></button>
+      <nav class="nav student-navigation" aria-label="Navegação do aluno">
+        <span class="nav-label">APRENDER</span>
+        <button class="active" data-view="inicio"><i>⌂</i><span>Visão geral</span></button>
+        <button data-view="meu-espaco"><i>◎</i><span>Meu espaço</span></button>
+        <button data-view="turmas"><i>♙</i><span>Minhas turmas</span><b id="studentClassBadge">0</b></button>
+        <button data-view="agenda"><i>▣</i><span>Agenda e avisos</span><b id="studentNoticeBadge">0</b></button>
+        <button data-view="materias"><i>▦</i><span>Matérias</span></button>
+        <button data-view="videos"><i>▶</i><span>Vídeos curtos</span></button>
+        <span class="nav-label">PRATICAR</span>
+        <button data-view="laboratorio"><i>&lt;/&gt;</i><span>Laboratórios</span><b>2 EM 1</b></button>
+        <button data-view="esp32"><i>◈</i><span>ESP32 em 3D</span><b>NOVO</b></button>
+        <button data-view="quiz"><i>?</i><span>Quiz por nível</span></button>
+        <span class="nav-label">COMUNIDADE</span>
+        <button data-view="comunidade"><i>♙</i><span>Rede social</span></button>
+      </nav>
+      <nav class="nav teacher-navigation" aria-label="Navegação do professor" hidden>
+        <span class="nav-label">PAINEL DO PROFESSOR</span>
+        <button class="active" data-teacher-section="overview"><i>⌂</i><span>Visão geral</span></button>
+        <button data-teacher-section="classes"><i>▦</i><span>Turmas e avisos</span></button>
+        <button data-teacher-section="students"><i>◎</i><span>Alunos</span></button>
+        <button data-teacher-section="diary"><i>▤</i><span>Diário, notas e frequência</span></button>
+        <button data-teacher-section="questions"><i>♙</i><span>Rede social das turmas</span><b id="teacherPendingQuestionCount">0</b></button>
+        <span class="nav-label">GESTÃO PEDAGÓGICA</span>
+        <button data-teacher-section="content"><i>✎</i><span>Aulas e materiais</span></button>
+        <button data-teacher-section="challenges"><i>◇</i><span>Desafios</span></button>
+        <button data-teacher-section="assessments"><i>?</i><span>Avaliações</span></button>
+        <button data-teacher-section="lab3d"><i>◈</i><span>Laboratório 3D</span></button>
+        <span class="nav-label">SISTEMA</span>
+        <button data-teacher-section="database"><i>▤</i><span>Banco de dados</span></button>
+      </nav>
+      <nav class="nav admin-navigation" aria-label="Navegação do administrador" hidden>
+        <span class="nav-label">GESTÃO INSTITUCIONAL</span>
+        <button class="active" data-admin-section="overview"><i>▦</i><span>Visão geral</span></button>
+        <button data-admin-section="institution"><i>▤</i><span>Instituição</span></button>
+        <button data-admin-section="users"><i>♙</i><span>Usuários e acessos</span><b id="adminUserBadge">0</b></button>
+        <button data-admin-section="social"><i>◉</i><span>Rede social</span><b>MOD</b></button>
+        <button data-admin-section="academics"><i>◎</i><span>Gestão acadêmica</span></button>
+        <button data-admin-section="content"><i>✎</i><span>Editor de conteúdo</span></button>
+        <button data-admin-section="indicators"><i>⌁</i><span>Indicadores</span></button>
+        <span class="nav-label">GOVERNANÇA</span>
+        <button data-admin-section="privacy"><i>✓</i><span>Marca e LGPD</span></button>
+        <button data-admin-section="database"><i>▣</i><span>Banco SQLite</span></button>
+      </nav>
+      <div class="streak-card student-navigation"><span>⚡</span><div><small>SEQUÊNCIA DE ESTUDOS</small><strong>3 dias praticando</strong><p>Faça uma atividade hoje para continuar.</p></div></div>
+      <div class="teacher-sidebar-card teacher-navigation" hidden><span>✦</span><div><small>AMBIENTE EXCLUSIVO</small><strong>Gestão organizada</strong><p>Cada ferramenta em seu próprio espaço.</p></div></div>
+      <div class="teacher-sidebar-card admin-navigation" hidden><span>✓</span><div><small>ADMINISTRAÇÃO</small><strong>Controle institucional</strong><p>Dados, acessos e governança em um só lugar.</p></div></div>
+      <div class="profile"><span class="avatar" id="profileAvatar">AL</span><div><strong id="profileName">Aluno coda</strong><small id="profileXp">0 XP • Explorador</small></div><button class="logout-button" id="logoutButton" title="Sair" aria-label="Sair da conta">↪</button></div>
+    </aside>
+    <button class="backdrop" id="backdrop" aria-label="Fechar menu"></button>
+
+    <main class="main" id="mainContent" tabindex="-1">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Abrir menu">☰</button>
+        <div class="search-wrap student-interface"><label class="search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Buscar matéria, aula ou tecnologia..." autocomplete="off" aria-controls="globalSearchResults" aria-expanded="false"><kbd>Ctrl K</kbd></label><div class="global-search-results" id="globalSearchResults" hidden></div></div>
+        <div class="teacher-topbar-title teacher-navigation" hidden><small>PORTAL DO PROFESSOR</small><strong id="teacherPageTitle">Visão geral</strong></div>
+        <div class="teacher-topbar-title admin-navigation" hidden><small>PORTAL DO ADMINISTRADOR</small><strong id="adminPageTitle">Visão geral</strong></div>
+        <div class="top-actions"><span class="student-greeting" id="studentGreeting">Olá, aluno</span><button class="notification-button student-interface" id="notificationButton" data-view="agenda" aria-label="Abrir notificações">♢<b id="topNotificationCount">0</b></button><span class="xp student-interface" id="topXp">⚡ 0 XP</span><button class="accessibility-button" id="accessibilityButton" aria-label="Opções de acessibilidade" aria-expanded="false">Aa</button><button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"><span class="sun">☀</span><span class="moon">☾</span></button></div>
+      </header>
+
+      <div class="content">
+        <section class="view active" id="inicio">
+          <div class="hero">
+            <div class="hero-copy">
+              <span class="eyebrow"><i></i> ESTUDO QUE VIRA PROJETO</span>
+              <h1>Aprenda tecnologia.<br><em>Construa de verdade.</em></h1>
+              <p>Trilhas completas, aulas em etapas, prática no meio do conteúdo e um laboratório para experimentar cada linguagem.</p>
+              <div class="hero-actions"><button class="primary" data-view="materias">Escolher uma matéria <b>→</b></button><button class="secondary" data-view="laboratorio">&lt;/&gt; Abrir laboratório</button></div>
+              <div class="hero-chips"><span>14 trilhas</span><span>98 aulas</span><span>98 atividades</span><span>4 projetos ESP32</span></div>
+            </div>
+            <div class="learning-card">
+              <div class="learning-head"><span><small>SEU PRÓXIMO PASSO</small><strong id="continueTitle">Comece sua primeira trilha</strong></span><i>AO VIVO</i></div>
+              <div class="orbit-card" aria-hidden="true">
+                <div class="orbit-plane orbit-plane-outer">
+                  <span class="orbit-ring"></span>
+                  <span class="orbit-runner outer-runner-a"><span class="orbit-anchor"><span class="node n2">PY</span></span></span>
+                  <span class="orbit-runner outer-runner-b"><span class="orbit-anchor"><span class="node n4">ESP</span></span></span>
+                </div>
+                <div class="orbit-plane orbit-plane-inner">
+                  <span class="orbit-ring"></span>
+                  <span class="orbit-runner inner-runner-a"><span class="orbit-anchor"><span class="node n1">JS</span></span></span>
+                  <span class="orbit-runner inner-runner-b"><span class="orbit-anchor"><span class="node n3">C++</span></span></span>
+                </div>
+                <div class="orbit-core">&lt;/&gt;</div>
+              </div>
+              <div class="continue-progress"><span><i id="continueBar"></i></span><b id="continuePercent">0%</b></div>
+              <button class="continue-button" id="continueButton">Explorar trilhas <b>→</b></button>
+            </div>
+          </div>
+
+          <div class="dashboard-row">
+            <article><span class="metric-icon lime">✓</span><div><small>AULAS CONCLUÍDAS</small><strong id="metricLessons">0</strong><p>de 98 aulas disponíveis</p></div></article>
+            <article><span class="metric-icon blue">⌁</span><div><small>ATIVIDADES FEITAS</small><strong id="metricActivities">0</strong><p>prática salva no navegador</p></div></article>
+            <article><span class="metric-icon orange">◈</span><div><small>TRILHAS INICIADAS</small><strong id="metricTracks">0</strong><p>continue no seu ritmo</p></div></article>
+          </div>
+
+          <section class="home-section">
+            <div class="section-title"><div><span class="kicker">ORGANIZADO POR ÁREA</span><h2>Escolha seu caminho</h2><p>Comece pelos fundamentos e avance até aplicações, sistemas e hardware.</p></div><button class="link-button" data-view="materias">Ver todas as matérias →</button></div>
+            <div class="path-grid">
+              <button data-category="Web"><i class="web">&lt;/&gt;</i><span><small>BASE DA WEB</small><strong>HTML, CSS, JavaScript e TypeScript</strong><em>28 aulas • 8 atividades</em></span><b>→</b></button>
+              <button data-category="Aplicações"><i class="apps">⚛</i><span><small>APLICAÇÕES</small><strong>React, React Native, Java e C#</strong><em>28 aulas • 8 atividades</em></span><b>→</b></button>
+              <button data-category="Sistemas"><i class="systems">{ }</i><span><small>SISTEMAS, DADOS E LÓGICA</small><strong>Python, SQL, C, C+ e C++</strong><em>35 aulas • 35 atividades</em></span><b>→</b></button>
+              <button data-category="Hardware"><i class="hardware">◈</i><span><small>HARDWARE E IOT</small><strong>ESP32 com projetos em 3D</strong><em>7 aulas • 4 montagens</em></span><b>→</b></button>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="meu-espaco">
+          <div class="page-heading student-space-heading"><div><span class="kicker">PAINEL DO ALUNO</span><h1 id="studentSpaceTitle">Seu espaço de estudos</h1><p>Organize sua rotina, retome conteúdos importantes e acompanhe sua evolução.</p></div><button class="secondary" id="exportProgress">↓ Exportar meu progresso</button></div>
+          <div class="student-hub-grid">
+            <article class="daily-goal-card"><div class="hub-card-head"><span>◎</span><div><small>META DE HOJE</small><strong>Tempo de estudo</strong></div></div><div class="goal-ring" id="goalRing"><div><b id="goalMinutes">0</b><small>de 30 min</small></div></div><label>Meta diária<select id="dailyGoal"><option value="15">15 minutos</option><option value="30" selected>30 minutos</option><option value="45">45 minutos</option><option value="60">60 minutos</option></select></label></article>
+            <article class="focus-timer-card"><div class="hub-card-head"><span>◷</span><div><small>SESSÃO DE FOCO</small><strong>Estude com pausas</strong></div></div><div class="focus-timer" id="focusTimer">25:00</div><p>25 minutos de estudo e uma pausa curta ajudam a manter a atenção.</p><div class="timer-actions"><button class="primary" id="toggleTimer">▶ Começar</button><button id="resetTimer">↻ Reiniciar</button></div></article>
+            <article class="week-card"><div class="hub-card-head"><span>▦</span><div><small>ESTA SEMANA</small><strong>Constância</strong></div></div><div class="week-days" id="weekDays"></div><p id="weekSummary">Comece uma aula para registrar seu primeiro dia.</p></article>
+            <article class="achievement-card"><div class="hub-card-head"><span>◇</span><div><small>CONQUISTAS</small><strong>Marcos alcançados</strong></div></div><div class="achievement-list" id="achievementList"></div></article>
+          </div>
+          <div class="student-library-grid">
+            <section class="saved-lessons"><div class="student-section-head"><div><span class="kicker">AULAS SALVAS</span><h2>Revisar depois</h2></div><button data-view="materias">Explorar matérias →</button></div><div id="savedLessonsList"></div></section>
+            <section class="recent-notes"><div class="student-section-head"><div><span class="kicker">MINHAS ANOTAÇÕES</span><h2>Notas recentes</h2></div></div><div id="recentNotesList"></div></section>
+          </div>
+          <section class="student-competency-card"><div class="student-section-head"><div><span class="kicker">COMPETÊNCIAS REAIS</span><h2>Seu domínio por área</h2><p>Calculado com aulas, atividades e verificações concluídas.</p></div><button type="button" id="customizeDashboard" aria-expanded="false">Personalizar painel</button></div><div class="dashboard-preferences" id="dashboardPreferences" hidden><label><input type="checkbox" data-dashboard-card="goals" checked> Meta diária</label><label><input type="checkbox" data-dashboard-card="timer" checked> Foco</label><label><input type="checkbox" data-dashboard-card="week" checked> Semana</label><label><input type="checkbox" data-dashboard-card="achievements" checked> Conquistas</label></div><div class="student-competency-grid" id="studentCompetencyGrid"></div></section>
+        </section>
+
+        <section class="view" id="turmas">
+          <div class="page-heading"><div><span class="kicker">APRENDIZADO EM GRUPO</span><h1>Minhas turmas</h1><p>Entre em uma turma, acompanhe avisos, avaliações e converse com seu professor.</p></div><form class="join-class-form" id="joinClassForm"><label>Código da turma<input id="joinClassCode" required maxlength="30" placeholder="Ex.: A1B2C3D4"></label><button class="primary" type="submit">Entrar na turma →</button></form></div>
+          <div class="platform-stat-row" id="studentPlatformStats"></div>
+          <div class="student-platform-grid">
+            <section class="platform-card"><div class="platform-card-head"><div><span class="kicker">TURMAS ATIVAS</span><h2>Seus espaços</h2></div></div><div class="platform-list" id="studentClassList"></div></section>
+            <section class="platform-card"><div class="platform-card-head"><div><span class="kicker">AVALIAÇÕES</span><h2>Atividades da turma</h2></div></div><div class="platform-list" id="studentAssessmentList"></div></section>
+            <section class="platform-card"><div class="platform-card-head"><div><span class="kicker">AVISOS</span><h2>Recados recentes</h2></div></div><div class="platform-list" id="studentAnnouncementList"></div></section>
+            <section class="platform-card"><div class="platform-card-head"><div><span class="kicker">DÚVIDAS DA TURMA</span><h2>Converse com o professor</h2></div></div><form class="platform-form" id="studentMessageForm"><label>Turma<select id="studentMessageClass" required></select></label><label>Título<input id="studentMessageTitle" required maxlength="120"></label><label>Mensagem<textarea id="studentMessageBody" rows="4" required maxlength="3000"></textarea></label><button class="primary" type="submit">Enviar dúvida →</button></form><div class="platform-list" id="studentMessageList"></div></section>
+          </div>
+        </section>
+
+        <section class="view" id="agenda">
+          <div class="page-heading"><div><span class="kicker">ORGANIZAÇÃO PESSOAL</span><h1>Agenda e notificações</h1><p>Prazos, avaliações e avisos importantes reunidos em ordem cronológica.</p></div><button class="secondary" id="markNotificationsRead">✓ Marcar tudo como lido</button></div>
+          <div class="agenda-layout"><section class="platform-card"><div class="platform-card-head"><div><span class="kicker">PRÓXIMOS COMPROMISSOS</span><h2>Sua agenda</h2></div></div><div class="agenda-timeline" id="studentAgendaList"></div></section><section class="platform-card"><div class="platform-card-head"><div><span class="kicker">CENTRAL DE AVISOS</span><h2>Notificações</h2></div></div><div class="platform-list" id="studentNotificationList"></div></section></div>
+        </section>
+
+        <section class="view" id="materias">
+          <div class="page-heading"><div><span class="kicker">BIBLIOTECA DE APRENDIZADO</span><h1>Matérias e trilhas</h1><p>14 trilhas divididas por área. Cada matéria tem 7 aulas, exemplos, vídeo e desafios de laboratório.</p></div><span class="catalog-count"><b>98</b> aulas no catálogo</span></div>
+          <div class="filters" id="courseFilters"><button class="active" data-category="Todas">Todas</button><button data-category="Web">Web</button><button data-category="Sistemas">Sistemas</button><button data-category="Aplicações">Aplicações</button><button data-category="Hardware">Hardware & IoT</button></div>
+          <div class="subject-groups" id="subjectGroups"></div>
+        </section>
+
+        <section class="view course-view" id="curso">
+          <button class="back-button" data-view="materias">← Voltar para matérias</button>
+          <div class="course-hero" id="courseHero"></div>
+          <div class="lesson-layout">
+            <aside class="lesson-sidebar"><div class="lesson-sidebar-head"><span>CONTEÚDO DA TRILHA</span><b id="lessonProgressText">0/7</b></div><div id="lessonList"></div></aside>
+            <article class="lesson-reader" id="lessonReader"></article>
+          </div>
+        </section>
+
+        <section class="view" id="videos">
+          <div class="page-heading"><div><span class="kicker">MICROAULAS EM VÍDEO</span><h1>Assista, entenda e pratique</h1><p>Vídeos diferentes por aula, com contexto, objetivo e atividade para fazer logo depois.</p></div><span class="catalog-count"><b id="videoCatalogCount">98</b> aulas em vídeo</span></div>
+          <div class="video-tools"><label class="video-search"><span>⌕</span><input id="videoSearch" type="search" placeholder="Buscar aula ou matéria..."></label><label>Matéria<select id="videoCourseSelect"><option value="Todas">Todas as matérias</option></select></label><div class="video-length-options" role="group" aria-label="Duração dos vídeos"><button class="active" type="button" data-video-length="short">Curtos</button><button type="button" data-video-length="full">Completos</button></div></div>
+          <div class="video-filters" id="videoFilters"></div>
+          <div class="video-stage">
+            <div class="player-shell"><div class="player-frame"><iframe id="videoFrame" title="Videoaula selecionada" loading="lazy" allowfullscreen></iframe><div class="video-placeholder" id="videoPlaceholder"><button id="loadVideo">▶</button><span>Carregar videoaula</span></div></div><div class="video-learning-strip" id="videoLearningStrip"></div><div class="player-info" id="playerInfo"></div></div>
+            <aside class="video-queue"><div class="video-queue-head"><span>TRILHA DE VÍDEOS</span><b id="videoResultCount">98 aulas</b></div><div id="videoQueue"></div></aside>
+          </div>
+        </section>
+
+        <section class="view" id="laboratorio">
+          <div class="page-heading"><div><span class="kicker">APRENDER FAZENDO</span><h1>Laboratórios de código</h1><p>Escolha entre criar um programa livre ou resolver, em ordem, as atividades de cada matéria.</p></div><div class="lab-top-actions"><button id="downloadCode">↓ Baixar código</button><button id="resetLab">↻ Restaurar</button><button class="primary" id="runLab">▶ Executar de verdade</button></div></div>
+          <div class="lab-mode-tabs" id="labModeTabs">
+            <button class="active" data-lab-mode="free"><span>&lt;/&gt;</span><div><strong>Programação livre</strong><small>Crie e execute seu próprio código</small></div></button>
+            <button data-lab-mode="activity"><span>◇</span><div><strong>Atividades das trilhas</strong><small>Resolva desafios na ordem das aulas</small></div><b id="pendingActivities">98</b></button>
+          </div>
+          <div class="activity-navigator" id="activityNavigator" hidden>
+            <div class="activity-nav-head"><div><small>ROTEIRO DE ATIVIDADES</small><strong id="activityCourseTitle">HTML • 7 atividades</strong></div><label>Matéria <select id="activityCourse"></select></label></div>
+            <div class="activity-order" id="activityOrder"></div>
+            <div class="extra-challenges"><div><small>DESAFIOS CRIADOS PELOS PROFESSORES</small><strong>Práticas extras</strong></div><div id="customChallengeList"></div></div>
+          </div>
+          <div class="challenge-strip" id="challengeStrip"><span>◇</span><div><small>PROGRAMAÇÃO LIVRE</small><strong>Escolha uma linguagem e crie seu próprio programa.</strong></div><button id="verifyActivity" hidden>Verificar atividade</button></div>
+          <div class="lab-toolbox"><label><span>ENTRADA DO PROGRAMA (STDIN)</span><textarea id="stdinInput" rows="3" placeholder="Dados que o programa deve ler, um valor por linha..."></textarea></label><div class="lab-quick-actions"><button id="formatCode">Organizar código</button><button id="copyLabCode">Copiar</button><button id="clearOutput">Limpar saída</button></div><div class="lab-test-results" id="labTestResults"><span>○</span><div><strong>Testes aguardando execução</strong><small>Execute ou verifique uma atividade para ver os resultados.</small></div></div></div>
+          <div class="lab-app">
+            <div class="lab-bar"><span><i></i><i></i><i></i></span><label>Linguagem <select id="labLanguage" aria-label="Selecionar linguagem"></select></label><strong id="runtimeBadge">EXECUÇÃO NO NAVEGADOR</strong></div>
+            <div class="lab-main"><div class="editor"><div class="editor-head"><span id="labFilename">index.html</span><small id="cursorInfo">LIN 1, COL 1</small></div><div class="code-wrap"><div class="line-numbers" id="lineNumbers"></div><textarea id="codeEditor" spellcheck="false" aria-label="Editor de código"></textarea></div></div><div class="output"><div class="output-tabs"><button class="active" data-output="preview">RESULTADO</button><button data-output="console">CONSOLE</button><span>● PRONTO</span></div><iframe id="codePreview" title="Prévia do código" sandbox="allow-scripts"></iframe><pre id="consoleOutput" hidden></pre></div></div>
+          </div>
+          <div class="esp-device-bar" id="espDeviceBar" hidden>
+            <div class="device-state"><i id="espStatusDot"></i><span><small>ESP32 FÍSICO • USB</small><strong id="espStatusText">Nenhuma placa conectada</strong></span></div>
+            <div class="device-actions"><label>Baud <select id="espBaudRate"><option>9600</option><option selected>115200</option><option>230400</option></select></label><button id="connectEsp">Conectar ESP32</button><button class="primary" id="sendEsp" disabled>▶ Executar na placa</button><button id="stopEsp" disabled>■ Parar</button></div>
+          </div>
+          <div class="serial-command" id="serialCommandBar" hidden><label>Enviar pelo monitor serial<input id="serialCommand" placeholder="Digite um comando para a placa..."></label><button id="sendSerialCommand" disabled>Enviar →</button></div>
+          <div class="runtime-note" id="runtimeNote"></div>
+          <div class="lab-support" id="labSupport"></div>
+        </section>
+
+        <section class="view" id="esp32">
+          <div class="page-heading"><div><span class="kicker">HARDWARE INTERATIVO</span><h1>Laboratório ESP32 em 3D</h1><p>Explore a placa e mude para o modo fios para montar circuitos com LED, resistores, botões e sensores.</p></div><div class="scene-controls"><button data-rotate="left">←</button><button data-rotate="up">↑</button><button data-rotate="down">↓</button><button data-rotate="right">→</button><button data-rotate="reset">↻</button></div></div>
+          <div class="esp-mode-tabs"><button class="active" data-esp-mode="model"><span>◈</span><div><strong>Modelo 3D</strong><small>Gire e conheça os pinos</small></div></button><button data-esp-mode="wiring"><span>⌁</span><div><strong>Modo fios</strong><small>Monte e teste o circuito</small></div></button><button data-esp-mode="program"><span>&lt;/&gt;</span><div><strong>Programador 3D</strong><small>Adicione e programe componentes</small></div></button><button data-esp-mode="ar"><span>🥽</span><div><strong>RA com óculos</strong><small>Use WebXR no headset</small></div></button><button data-esp-mode="mobilear"><span>📱</span><div><strong>RA no celular</strong><small>Veja o ESP32 pela câmera</small></div></button></div>
+          <div class="esp-signal-lab"><div><span class="kicker">SIMULADOR DE SINAIS</span><h2>Teste entradas e saídas sem placa física</h2><p>Escolha um GPIO, altere o sinal digital ou o valor analógico e veja a resposta no painel.</p></div><label>GPIO<select id="simGpio"><option>GPIO2</option><option>GPIO4</option><option>GPIO5</option><option>GPIO18</option><option>GPIO21</option><option>GPIO25</option><option>GPIO26</option></select></label><label>Sinal analógico<input id="simAnalog" type="range" min="0" max="4095" value="2048"><b id="simAnalogValue">2048</b></label><button id="simDigital">○ DIGITAL LOW</button><div class="signal-readout"><span id="simVoltage">1.65 V</span><small>Leitura simulada</small></div></div>
+          <div id="espModelPanel">
+            <div class="esp-workspace">
+            <div class="esp-scene" id="espScene"><div class="grid-floor"></div><div class="esp-board" id="espBoard"><div class="pcb"><span class="board-label">ESP32-WROOM-32</span><div class="usb"><i></i></div><div class="chip"><span>ESPRESSIF</span><b>ESP32</b></div><div class="antenna"></div><div class="led led-power"></div><div class="led led-user" id="userLed"></div><div class="pin-row left-pins" id="leftPins"></div><div class="pin-row right-pins" id="rightPins"></div><span class="board-mark">coda IoT LAB</span></div></div><div class="sensor-pulse" id="sensorPulse"></div><div class="scene-hint">Arraste para girar • use a roda para aproximar</div></div>
+            <aside class="esp-panel"><span class="panel-kicker">PROJETOS GUIADOS</span><div class="esp-projects" id="espProjects"></div><div class="wiring-card" id="wiringCard"></div><button class="primary full" id="openEspLab">Abrir código no laboratório →</button></aside>
+            </div>
+            <div class="pin-guide"><div><span class="pin-dot power"></span><strong>Energia</strong><small>3V3, VIN e GND</small></div><div><span class="pin-dot digital"></span><strong>Digital</strong><small>GPIO para entrada e saída</small></div><div><span class="pin-dot analog"></span><strong>Analógico</strong><small>ADC para sensores</small></div><div><span class="pin-dot active"></span><strong>Ativo</strong><small>Pino usado no projeto atual</small></div></div>
+          </div>
+          <section class="mobile-ar-panel" id="espMobileARPanel" hidden>
+            <div class="mobile-ar-intro">
+              <div><span class="kicker">CÂMERA DO CELULAR • RA</span><h2>Coloque o ESP32 virtual na sua mesa</h2><p>No Android compatível, o CODA tenta usar WebXR e detectar a superfície real. Em outros celulares, ele abre a câmera e permite posicionar o ESP32 manualmente sobre a imagem.</p></div>
+              <button type="button" class="primary" id="openMobileAR">📱 Abrir câmera em RA</button>
+            </div>
+            <div class="ar-status" id="mobileARStatus"><span>◎</span><div><strong>Pronto para abrir a câmera</strong><small>Toque em “RA no celular” ou no botão acima e permita o uso da câmera.</small></div></div>
+            <div class="mobile-ar-steps"><div><b>1</b><span><strong>Permita a câmera</strong><small>Use a câmera traseira.</small></span></div><div><b>2</b><span><strong>Aponte para a mesa</strong><small>No WebXR, mova o celular até a superfície ser encontrada.</small></span></div><div><b>3</b><span><strong>Toque para posicionar</strong><small>O ESP32 aparece naquele ponto.</small></span></div><div><b>4</b><span><strong>Ajuste</strong><small>No modo câmera, arraste, gire e altere o tamanho.</small></span></div></div>
+          </section>
+          <div class="mobile-ar-overlay" id="mobileAROverlay" hidden aria-hidden="true">
+            <video id="mobileARVideo" autoplay muted playsinline></video>
+            <div class="mobile-ar-topbar"><div><strong>📱 CODA • ESP32 RA</strong><small id="mobileAROverlayHint">Toque na mesa para colocar o ESP32</small></div><button type="button" id="closeMobileAR" aria-label="Fechar realidade aumentada">✕</button></div>
+            <div class="mobile-ar-stage" id="mobileARStage">
+              <div class="mobile-ar-reticle" id="mobileARReticle"><i></i><span>TOQUE NA MESA</span></div>
+              <div class="mobile-ar-board" id="mobileARBoard" hidden>
+                <div class="mobile-ar-usb"></div><div class="mobile-ar-chip"><small>ESPRESSIF</small><b>ESP32</b></div><div class="mobile-ar-antenna"></div><div class="mobile-ar-led"></div><strong>ESP32-WROOM-32</strong><span>CODA IoT LAB</span><i class="mobile-pins left"></i><i class="mobile-pins right"></i>
+              </div>
+            </div>
+            <div class="mobile-ar-controls"><button type="button" id="mobileARSmaller">−</button><button type="button" id="mobileARRotateLeft">↶</button><button type="button" id="mobileARReset">Centralizar</button><button type="button" id="mobileARRotateRight">↷</button><button type="button" id="mobileARLarger">＋</button></div>
+          </div>
+          <span id="espWiringAnchor" aria-hidden="true"></span>
+          <section class="wiring-lab" id="espWiringPanel" hidden>
+            <div class="wiring-lab-head"><div><span class="kicker">BANCADA DE CIRCUITOS</span><h2>Monte como no Tinkercad</h2><p>Arraste componentes para a bancada. Pressione um terminal e arraste até outro terminal para criar um fio; clique em um terminal para usar o modo passo a passo.</p></div><div class="wiring-actions"><button id="loadWiringExample">Carregar exemplo</button><button id="undoWire">Desfazer fio</button><button id="clearWires">Limpar</button><button class="primary" id="powerCircuit">▶ Testar circuito</button></div></div>
+            <div class="wiring-view-switch" role="tablist" aria-label="Visualização da bancada"><button type="button" class="active" data-wiring-view="2d">▦ Protoboard 2D</button><button type="button" data-wiring-view="3d">◇ Bancada 3D</button><span><b>Atalhos:</b> arrastar componente • arrastar terminal • Delete remove seleção</span></div>
+            <div class="wiring-selection" id="wiringSelection"><span>1</span><strong>Selecione o primeiro terminal</strong><small>O próximo clique completará o fio.</small></div>
+            <div class="wiring-palette" id="wiringPalette" aria-label="Biblioteca de componentes"><strong>Biblioteca</strong><small>Arraste para a bancada</small><button type="button" draggable="true" data-add-component="resistor"><i class="palette-resistor"></i><span>Resistor</span><em>220 Ω</em></button><button type="button" draggable="true" data-add-component="led"><i class="palette-led"></i><span>LED</span><em>polarizado</em></button><button type="button" draggable="true" data-add-component="battery"><i class="palette-battery"></i><span>Bateria</span><em>3,3 V</em></button><button type="button" draggable="true" data-add-component="button"><i class="palette-button"></i><span>Chave</span><em>digital</em></button><button type="button" draggable="true" data-add-component="capacitor"><i class="palette-capacitor"></i><span>Capacitor</span><em>100 µF</em></button><button type="button" draggable="true" data-add-component="sensor"><i class="palette-sensor"></i><span>Sensor</span><em>ultrassônico</em></button></div>
+            <div class="wiring-board wiring-board-2d" id="wiringBoard" tabindex="0" aria-label="Bancada de montagem de circuitos">
+              <svg class="wire-layer" id="wireLayer" aria-hidden="true"></svg>
+              <div class="breadboard-rails" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <div class="wiring-esp"><div class="mini-antenna"></div><div class="mini-chip">ESP32</div><strong>ESP32-WROOM-32</strong><div class="wiring-pin-bank" id="wiringPinBank"></div></div>
+              <div class="component-bench" id="circuitComponents"></div>
+            </div>
+            <div class="circuit-result" id="circuitResult"><span>○</span><div><strong>Circuito aguardando montagem</strong><p>Monte as conexões ou carregue o exemplo do projeto selecionado.</p></div></div>
+            <div class="hardware-warning"><b>Simulação educativa:</b> antes de montar fisicamente, desligue a alimentação, confira o datasheet dos componentes e lembre que os GPIOs do ESP32 trabalham em 3,3 V.</div>
+          </section>
+          <section class="three-d-programmer" id="espProgramPanel" hidden>
+            <div class="three-d-program-head"><div><span class="kicker">CODA CIRCUITS • ESP32</span><h2>Programador 3D · ESP32 Circuit Lab</h2><p>Monte, conecte e simule componentes em uma bancada 3D independente.</p></div><button class="primary" id="openGenerated3DCode">Abrir código no laboratório →</button></div>
+            <div class="prototype-toolbar"><div><span id="prototypeComponentCount">0 componentes • 0 fios</span><strong id="prototypeSimulationStatus">Simulação parada</strong></div><span class="prototype-wire-help">1. Adicione • 2. Conecte • 3. Teste</span><button type="button" id="loadPrototypeExampleToolbar">Montar exemplo correto</button><button type="button" id="play3DSimulation" disabled>▶ Testar circuito</button><button type="button" id="reset3DPrototype">Limpar projeto</button></div>
+            <div class="three-d-builder">
+              <aside class="programmer-library"><div class="library-heading"><span class="kicker">BIBLIOTECA DE COMPONENTES</span><strong>Adicione à bancada</strong><small>Componentes para seu circuito</small></div><div class="component-palette" id="componentPalette"><div class="palette-group"><span class="palette-group-title">Básicos</span><button type="button" data-component-type="led">● <span>LED</span><small>GPIO2 • polarizado</small></button><button type="button" data-component-type="resistor">▰ <span>Resistor</span><small>220 Ω • proteção</small></button><button type="button" data-component-type="battery">▣ <span>Bateria</span><small>3,3 V • alimentação</small></button><button type="button" data-component-type="button">▣ <span>Botão</span><small>GPIO4 • entrada</small></button></div><div class="palette-group"><span class="palette-group-title">Sensores</span><button type="button" data-component-type="sensor">⌁ <span>Sensor</span><small>GPIO35 • ADC</small></button><button type="button" data-component-type="temperature">℃ <span>Temperatura</span><small>GPIO35 • ADC</small></button></div><div class="palette-group"><span class="palette-group-title">Atuadores e comunicação</span><button type="button" data-component-type="rgb">◉ <span>LED RGB</span><small>PWM</small></button><button type="button" data-component-type="servo">↻ <span>Servo</span><small>PWM</small></button><button type="button" data-component-type="motor">⚙ <span>Motor</span><small>PWM</small></button><button type="button" data-component-type="display">▤ <span>Display</span><small>I2C</small></button><button type="button" data-component-type="relay">▰ <span>Relé</span><small>GPIO23</small></button><button type="button" data-component-type="buzzer">◖ <span>Buzzer</span><small>GPIO25</small></button></div></div><div class="library-hint">Clique em um terminal e depois em outro para criar fios coloridos.</div></aside>
+              <div class="prototype-stage" id="prototypeStage" tabindex="0" aria-label="Bancada 3D do ESP32 Circuit Lab"><svg class="prototype-wire-layer" id="prototypeWireLayer" aria-hidden="true"></svg><div class="prototype-board-label">ESP32 CIRCUIT LAB <small>ambiente de prototipagem</small></div><div class="prototype-esp"><div class="prototype-board"><i class="prototype-usb-port"></i><i class="prototype-main-chip">ESP32</i><i class="prototype-esp-led" id="prototypeEspLed"></i><strong>ESP32-WROOM-32</strong></div><div class="prototype-pin-bank-left"></div><div class="prototype-pin-bank-right"></div></div><div id="prototypeIoBank"></div><div id="prototypeComponents"></div><div id="prototypeEmpty"><div class="prototype-empty-card"><span class="prototype-empty-icon">⌁</span><strong>Monte seu primeiro circuito</strong><small>Comece pelo exemplo guiado ou adicione um LED e um resistor na biblioteca.</small><div class="prototype-empty-steps"><span><b>1</b> Adicione</span><span><b>2</b> Conecte</span><span><b>3</b> Teste</span></div><button type="button" class="primary" id="loadPrototypeExample">Montar exemplo: LED + resistor</button></div></div><div id="prototypeOutput" aria-live="polite"><b>Pronto para começar</b><span>Adicione componentes ou carregue o exemplo guiado.</span></div></div>
+              <aside class="component-inspector" id="componentInspector"><span class="kicker">GUIA DA BANCADA</span><h3>Como montar</h3><p class="inspector-tip">Clique em um componente para selecionar. Clique em dois terminais para criar um fio ou arraste de um terminal ao outro.</p><ol class="inspector-steps"><li><b>Adicione</b><span>Escolha um componente na biblioteca.</span></li><li><b>Posicione</b><span>Arraste o componente para a bancada.</span></li><li><b>Conecte</b><span>Use os terminais coloridos nas extremidades.</span></li><li><b>Teste</b><span>Execute somente depois de fechar o circuito.</span></li></ol><div class="gpio-legend"><strong>GPIOs principais</strong><span><i class="gpio-power"></i>3V3 / GND = alimentação</span><span><i class="gpio-signal"></i>GPIO = sinal digital</span><span><i class="gpio-analog"></i>GPIO34/35 = entrada ADC</span></div></aside>
+            </div>
+            <div class="teacher-3d-templates" id="threeDTemplates"></div><button type="button" id="prototypeViewToggle" hidden>Vista superior</button>
+            <div hidden aria-hidden="true"><span class="prototype-radio-module">ESP-WROOM-32</span><span>ESP-WROOM-32</span><span id="prototype-pin-bank-left"></span></div>
+          </section>
+          <section class="ar-lab" id="espARPanel" hidden>
+            <div class="ar-hero">
+              <article class="ar-card">
+                <span class="kicker">WEBXR • MIXED REALITY</span><h2>ESP32 na sua bancada real</h2><p>Use um óculos compatível com WebXR. O CODA usa passthrough do próprio dispositivo para posicionar o ESP32 virtual sobre uma superfície real.</p>
+                <div class="ar-mode-picker">
+                  <button type="button" class="active" data-ar-mode="view"><span>👓</span><div><strong>Somente visualizar</strong><small>Posicione, observe e caminhe ao redor da placa</small></div></button>
+                  <button type="button" data-ar-mode="lab"><span>🥽</span><div><strong>Laboratório interativo</strong><small>Selecione e mova ESP32, LED e resistor</small></div></button>
+                </div>
+                <div class="ar-actions"><button type="button" id="checkAR" hidden>Verificar meu dispositivo</button><button type="button" class="primary" id="enterAR" hidden>Entrar em realidade aumentada</button><button type="button" id="exitAR" disabled>Encerrar RA</button></div>
+                <div class="ar-status" id="arStatus"><span>◎</span><div><strong>Entrada automática</strong><small>Ao tocar em 🥽 Realidade aumentada, o CODA tenta abrir o modo RA imediatamente.</small></div></div>
+              </article>
+              <aside class="ar-guide"><span class="kicker">COMO USAR</span><h3>Dentro do óculos</h3><ol><li><b>Toque em 🥽 Realidade aumentada.</b> A RA abre automaticamente; autorize o passthrough se o óculos solicitar.</li><li><b>Olhe para a bancada.</b> O sistema procura uma superfície.</li><li><b>Faça uma pinça ou pressione o gatilho.</b> O ESP32 é colocado naquele ponto.</li><li><b>No modo visualização</b>, outra seleção reposiciona a placa.</li><li><b>No laboratório</b>, aponte e selecione uma peça; depois selecione outro ponto da mesa para movê-la.</li></ol></aside>
+            </div>
+            <div class="ar-tools" id="arLabTools" hidden><div class="ar-tool-row"><strong>Peças virtuais</strong><button type="button" id="arAddLed">＋ LED</button><button type="button" id="arAddResistor">＋ Resistor</button><button type="button" id="arClearComponents">Limpar peças</button></div><div class="ar-component-list" id="arComponentList"></div><div class="ar-tool-row"><strong>Ajuste do ESP32</strong><button type="button" id="arRotateLeft">↶ Girar</button><button type="button" id="arRotateRight">↷ Girar</button><button type="button" id="arScaleDown">− Menor</button><button type="button" id="arScaleUp">＋ Maior</button><span id="arSelectedLabel">Nenhum objeto selecionado</span></div></div>
+            <div class="ar-note"><b>Importante:</b> a experiência RA precisa ser aberta por HTTPS e depende do suporte WebXR do óculos/navegador. No PC comum, o CODA mantém os modos 3D, fios e programador normalmente.</div>
+          </section>
+        </section>
+
+        <section class="view" id="quiz">
+          <div class="page-heading"><div><span class="kicker">CENTRAL DE AVALIAÇÕES</span><h1>Quiz, simulados e avaliações</h1><p>Pratique por matéria, faça simulados no formato universitário e responda avaliações enviadas pelo professor.</p></div><span class="catalog-count"><b>14</b> matérias avaliadas</span></div>
+          <div class="assessment-tabs" id="assessmentTabs"><button class="active" data-assessment-mode="subjects"><span>▦</span><div><strong>Quiz por matéria</strong><small>Escolha uma das 14 tecnologias</small></div></button><button data-assessment-mode="mock"><span>⌁</span><div><strong>Simulados acadêmicos</strong><small>Provas com tempo e resultado</small></div></button><button data-assessment-mode="assigned"><span>◎</span><div><strong>Minhas avaliações</strong><small>Atividades enviadas pelo professor</small></div><b id="assignedQuizCount">0</b></button></div>
+          <section id="subjectQuizPanel"><div class="assessment-section-head"><div><span class="kicker">BANCO DE QUESTÕES</span><h2>Escolha uma matéria</h2></div><label>Dificuldade<select id="quizDifficulty"><option value="Todas">Todas</option><option>Iniciante</option><option>Intermediário</option><option>Avançado</option></select></label></div><div class="quiz-subject-grid" id="quizSubjectGrid"></div></section>
+          <section id="mockExamPanel" hidden><div class="assessment-section-head"><div><span class="kicker">SIMULADOS DE GRADUAÇÃO</span><h2>Provas integradas</h2><p>Questões inspiradas em disciplinas introdutórias de computação, sem reproduzir provas protegidas.</p></div></div><div class="mock-exam-list" id="mockExamList"></div></section>
+          <section id="assignedQuizPanel" hidden><div class="assessment-section-head"><div><span class="kicker">PLANO INDIVIDUAL</span><h2>Avaliações atribuídas a você</h2></div></div><div class="assigned-quiz-list" id="assignedQuizList"></div></section>
+          <div class="quiz-active-head" id="quizActiveHead" hidden></div>
+          <div class="quiz-shell" id="quizShell"></div>
+          <section class="quiz-history" id="quizHistory"></section>
+        </section>
+
+        <section class="view" id="comunidade">
+          <div class="coda-social" id="codaSocialRoot">
+            <header class="coda-social-head"><div><span class="kicker">CODA CONECTA</span><h1>Aprender fica melhor <em>em comunidade.</em></h1><p>Pergunte, compartilhe projetos e aprenda com sua turma.</p></div><div class="coda-social-streak"><span>◎</span><div><small>SUA PARTICIPAÇÃO</small><strong>Começa aqui</strong></div></div></header>
+            <div class="coda-social-tools"><label><span>⌕</span><input id="socialSearch" type="search" placeholder="Buscar perguntas, pessoas ou matérias"></label><button id="socialNotifications" type="button" aria-label="Notificações">♢<b></b></button><button class="primary" id="socialNewPost" type="button">＋ Nova publicação</button></div>
+            <section class="coda-social-subjects" id="socialSubjects" aria-label="Atalhos de matérias"></section>
+            <div class="coda-social-tabs" id="socialTabs"><button class="active" data-social-tab="all">Para você</button><button data-social-tab="following">Seguindo</button><button data-social-tab="recent">Recentes</button><button data-social-tab="unanswered">Sem resposta</button><button data-social-tab="solved">Resolvidas</button><button data-social-tab="saved">Salvas</button><button data-social-tab="groups">Grupos</button><button data-social-tab="events">Eventos</button><button data-social-tab="messages">Mensagens</button><button data-social-tab="profile">Perfil</button><button data-social-tab="admin" id="socialAdminTab" hidden>Moderação</button></div>
+            <section class="coda-social-composer" id="socialComposer" hidden><span class="social-avatar" id="socialComposerAvatar">AS</span><div><div class="social-composer-types" role="group" aria-label="Tipo de publicação"><button class="active" type="button" data-post-type="post">✎ Publicação</button><button type="button" data-post-type="question">? Pergunta</button><button type="button" data-post-type="project">◇ Projeto</button><button type="button" data-post-type="poll">▥ Enquete</button></div><label>Título<input id="socialPostTitle" maxlength="90" placeholder="Resuma sua publicação"></label><label>Matéria<select id="socialPostSubject"><option>HTML/CSS</option><option>JavaScript</option><option>Python</option><option>SQL</option><option>ESP32</option><option>Modelagem 3D</option><option>Discussão</option></select></label><textarea id="socialPostBody" maxlength="1200" rows="4" placeholder="Compartilhe uma dúvida, ideia ou projeto com a comunidade..."></textarea><div class="social-poll-fields" id="socialPollFields" hidden><input id="socialPollOption1" maxlength="80" placeholder="Opção 1"><input id="socialPollOption2" maxlength="80" placeholder="Opção 2"><button type="button" id="socialAddPollOption">＋ opção</button></div><div class="social-attachment-row"><label class="social-attachment-button">▧ Adicionar imagem<input id="socialPostImage" type="file" accept="image/png,image/jpeg,image/webp"></label><span id="socialPostImageName">Nenhuma imagem selecionada</span></div><footer><small id="socialComposerHint">Adicione contexto para receber respostas melhores.</small><button id="socialCancelPost" type="button">Cancelar</button><button class="primary" id="socialPublish" type="button">Publicar</button></footer></div></section>
+            <div class="coda-social-layout"><main class="coda-social-feed" id="socialFeed"></main><aside class="coda-social-side"><section><header><h2>Em alta</h2></header><p class="social-sidebar-empty">Os assuntos mais publicados pela comunidade aparecerão aqui.</p></section><section><header><h2>Pessoas para seguir</h2></header><div id="socialPeople"></div></section><section class="social-rules"><header><h2>Combinados da comunidade</h2></header><p><span>1</span>Seja respeitoso e ajude a construir.</p><p><span>2</span>Explique o que você já tentou.</p><p><span>3</span>Não publique dados pessoais.</p></section></aside></div>
+          </div>
+          <div class="social-legacy" hidden><div id="communityFilters"><button data-topic="Todos"></button></div><div id="postList"></div><form id="postForm"><select id="postTopic"><option>Discussão</option></select><input id="postTitle"><textarea id="postBody"></textarea><button type="submit">Publicar</button></form></div>
+          <div class="social-modal-back" id="socialModal" hidden><section><header><div><span class="kicker">DISCUSSÃO</span><h2 id="socialModalTitle"></h2></div><button id="socialModalClose" type="button" aria-label="Fechar">×</button></header><div id="socialComments"></div><footer><textarea id="socialCommentInput" maxlength="500" rows="3" placeholder="Escreva uma resposta construtiva..."></textarea><button class="primary" id="socialCommentSend" type="button">Responder</button></footer></section></div>
+          <div class="social-modal-back" id="socialNotificationsModal" hidden><section class="social-notifications-panel"><header><div><span class="kicker">ATUALIZAÇÕES</span><h2>Notificações</h2></div><button id="socialNotificationsClose" type="button" aria-label="Fechar">×</button></header><div id="socialNotificationsList"></div><footer><button id="socialMarkRead" type="button">Marcar todas como lidas</button></footer></section></div>
+          <div class="social-modal-back" id="socialProfileModal" hidden><form class="social-profile-editor" id="socialProfileForm"><header><div><span class="kicker">MEU PERFIL</span><h2>Editar perfil social</h2></div><button id="socialProfileClose" type="button" aria-label="Fechar">×</button></header><div><label class="social-photo-field"><span id="socialPhotoPreview">AS</span><b>Foto do perfil<input id="socialProfilePhoto" type="file" accept="image/png,image/jpeg,image/webp"></b><small>PNG, JPG ou WebP de até 1 MB.</small></label><label>Nome exibido<input id="socialProfileName" required maxlength="60"></label><label>Biografia<textarea id="socialProfileBio" rows="3" maxlength="240" placeholder="Conte um pouco sobre seus estudos e projetos."></textarea></label><label>Área de estudo<input id="socialProfileArea" maxlength="80" placeholder="Ex.: Desenvolvimento Web"></label><label>Cor da capa<input id="socialProfileColor" type="color" value="#1f7252"></label></div><footer><button id="socialProfileCancel" type="button">Cancelar</button><button class="primary" type="submit">Salvar perfil</button></footer></form></div>
+        </section>
+
+        <section class="view teacher-view" id="professor">
+          <div class="page-heading teacher-page-heading"><div><span class="kicker" id="teacherWorkspaceKicker">CENTRAL PEDAGÓGICA</span><h1 id="teacherWorkspaceTitle">Visão geral</h1><p id="teacherWorkspaceDescription">Acompanhe os principais números e escolha uma área para começar.</p></div><span class="teacher-badge">PROFESSOR</span></div>
+          <div class="teacher-dashboard" data-teacher-panel="overview"><article><small>AULAS PERSONALIZADAS</small><strong id="teacherEditCount">0</strong><p>Conteúdos salvos no servidor</p></article><article><small>ALUNOS MATRICULADOS</small><strong id="teacherStudentCount">0</strong><p>Em todas as turmas ativas</p></article><article><small>MÉDIA DAS AVALIAÇÕES</small><strong id="teacherQuizAverage">—</strong><p>Rendimento sincronizado</p></article><article><small>AVALIAÇÕES CRIADAS</small><strong id="teacherQuizCount">0</strong><p>Quizzes, simulados e atividades</p></article><article><small>DESAFIOS EXTRAS</small><strong id="teacherChallengeCount">0</strong><p>Práticas publicadas</p></article><article><small>CORREÇÕES PENDENTES</small><strong id="teacherReplyCount">0</strong><p>Questões discursivas aguardando nota</p></article></div>
+          <div class="server-status-strip" id="serverTeacherOverview" data-teacher-panel="overview"><span>●</span><div><small>BANCO MULTIUSUÁRIO CONECTADO</small><strong>Os dados deste painel são sincronizados pelo servidor coda.</strong></div><b id="serverLastSync">AGORA</b></div>
+          <div class="teacher-quick-grid" data-teacher-panel="overview"><button type="button" data-open-teacher-section="students"><span>◎</span><div><small>ACOMPANHAMENTO</small><strong>Ver rendimento dos alunos</strong><p>Resultados, tempo de estudo e histórico.</p></div><b>→</b></button><button type="button" data-open-teacher-section="content"><span>✎</span><div><small>CONTEÚDO</small><strong>Editar aulas e materiais</strong><p>Atualize textos, vídeos e referências.</p></div><b>→</b></button><button type="button" data-open-teacher-section="assessments"><span>?</span><div><small>AVALIAÇÕES</small><strong>Criar quiz ou simulado</strong><p>Monte perguntas e escolha os destinatários.</p></div><b>→</b></button></div>
+          <section class="teacher-class-workspace" data-teacher-panel="classes" hidden><div class="teacher-management-grid"><form class="teacher-editor" id="teacherClassForm"><div class="teacher-card-head"><span>▦</span><div><small>NOVA TURMA</small><h2>Criar espaço de aprendizagem</h2></div></div><label>Nome da turma<input id="teacherClassName" required maxlength="100" placeholder="Ex.: Desenvolvimento Web — Turma A"></label><div class="teacher-select-row"><label>Área ou disciplina<input id="teacherClassSubject" required maxlength="100" value="Tecnologia"></label><label>Descrição<input id="teacherClassDescription" maxlength="500" placeholder="Objetivo ou semestre"></label></div><button class="primary" type="submit">Criar turma e gerar código →</button></form><form class="teacher-editor" id="teacherAnnouncementForm"><div class="teacher-card-head"><span>♢</span><div><small>COMUNICADO</small><h2>Publicar aviso para a turma</h2></div></div><label>Turma<select id="teacherAnnouncementClass" required></select></label><label>Título<input id="teacherAnnouncementTitle" required maxlength="120"></label><label>Mensagem<textarea id="teacherAnnouncementBody" rows="5" required maxlength="3000"></textarea></label><button class="primary" type="submit">Publicar aviso →</button></form></div><section class="platform-card"><div class="platform-card-head"><div><span class="kicker">TURMAS CADASTRADAS</span><h2>Gestão de turmas e códigos</h2></div></div><div class="teacher-class-list" id="teacherClassList"></div></section><section class="platform-card teacher-inbox"><div class="platform-card-head"><div><span class="kicker">CAIXA DE DÚVIDAS</span><h2>Conversas com os alunos</h2><p>Escolha uma turma, acompanhe as perguntas e responda no mesmo histórico.</p></div><label>Turma<select id="teacherMessageClass"></select></label></div><div class="platform-list" id="teacherMessageList"></div><form id="teacherMessageForm" class="platform-inline-form"><input id="teacherMessageParent" type="hidden"><label>Assunto<input id="teacherMessageTitle" required maxlength="120" placeholder="Resposta ou orientação"></label><label>Mensagem<textarea id="teacherMessageBody" rows="3" required maxlength="3000"></textarea></label><button class="primary" type="submit">Enviar resposta →</button></form></section></section>
+          <section class="server-student-analytics" data-teacher-panel="students" hidden><section class="student-directory-panel"><div class="platform-card-head"><div><span class="kicker">TODOS OS CADASTRADOS</span><h2>Diretório de alunos</h2><p>Veja todos os alunos do sistema e matricule qualquer um diretamente, sem enviar código.</p></div><b id="teacherStudentDirectoryCount">0 de 0</b></div><form id="teacherEnrollForm" class="direct-enrollment-form"><label>Aluno<select id="teacherEnrollStudent" required></select></label><label>Turma<select id="teacherEnrollClass" required></select></label><button class="primary" type="submit">Adicionar à turma →</button></form><label class="student-search-field">Buscar aluno<input id="teacherStudentSearch" type="search" placeholder="Digite nome, e-mail ou matrícula" autocomplete="off"></label><div class="student-directory" id="teacherStudentDirectory"></div></section><div class="platform-card-head enrolled-students-head"><div><span class="kicker">ACOMPANHAMENTO</span><h2>Alunos matriculados</h2><p>Filtre uma turma para consultar progresso, tempo de estudo, entregas e histórico.</p></div><label>Turma<select id="serverAnalyticsClass"></select></label></div><div class="server-student-list" id="serverStudentList"></div><div class="server-analytics-grid"><section class="platform-card"><h3>Entregas e correções</h3><div class="platform-list" id="serverSubmissionList"></div></section><section class="platform-card"><h3>Atividade de aprendizagem</h3><div class="platform-list" id="serverEventList"></div></section></div></section>
+          <section class="teacher-analytics" data-teacher-panel="legacy-students" hidden><div class="teacher-card-head"><span>◎</span><div><small>ACOMPANHAMENTO PEDAGÓGICO LOCAL</small><h2>Dados da versão anterior</h2></div></div><div class="analytics-controls"><label>Aluno<select id="analyticsStudent"></select></label><label>Matéria<select id="analyticsCourse"><option value="Todas">Todas as matérias</option></select></label><button id="exportClassReport">↓ Exportar relatório</button></div><div class="student-performance" id="studentPerformance"></div><div class="analytics-grid"><div><h3>Resultados de avaliações</h3><div id="studentQuizResults"></div></div><div><h3>Histórico de aprendizagem</h3><div id="studentActivityLog"></div></div></div></section>
+          <section class="teacher-diary" data-teacher-panel="diary" hidden>
+            <div class="platform-card-head"><div><span class="kicker">DIÁRIO DIGITAL</span><h2>Frequência, notas e rubricas</h2><p>Registre presença, notas e critérios de aprendizagem por turma.</p></div><div class="diary-filters"><label>Turma<select id="diaryClass" required></select></label><label>Data<input id="diaryDate" type="date" required></label><button type="button" id="loadDiary">Carregar diário</button></div></div>
+            <div class="diary-summary" id="diarySummary"></div>
+            <form class="platform-card diary-register" id="attendanceForm"><div class="platform-card-head"><div><span class="kicker">CHAMADA</span><h3>Frequência do dia</h3></div><button class="primary" type="submit">Salvar chamada</button></div><div class="diary-student-list" id="attendanceList"></div></form>
+            <div class="teacher-management-grid"><form class="teacher-editor" id="gradeForm"><div class="teacher-card-head"><span>◎</span><div><small>DIÁRIO DE NOTAS</small><h2>Lançar avaliação</h2></div></div><label>Aluno<select id="gradeStudent" required></select></label><div class="teacher-select-row"><label>Atividade<input id="gradeTitle" required maxlength="160" placeholder="Ex.: Projeto final de HTML"></label><label>Competência<select id="gradeCompetency" required><option>Fundamentos</option><option>Aplicação prática</option><option>Resolução de problemas</option><option>Projeto</option></select></label></div><div class="teacher-select-row"><label>Nota<input id="gradeScore" type="number" min="0" max="100" step="0.1" required></label><label>Valor máximo<input id="gradeMax" type="number" min="1" max="100" step="0.1" value="100" required></label></div><label>Comentário pedagógico<textarea id="gradeFeedback" rows="3" maxlength="2000"></textarea></label><button class="primary" type="submit">Salvar nota →</button></form><form class="teacher-editor" id="rubricForm"><div class="teacher-card-head"><span>✓</span><div><small>RUBRICA</small><h2>Criar critérios</h2></div></div><label>Nome da rubrica<input id="rubricTitle" required maxlength="160" placeholder="Ex.: Projeto de programação"></label><label>Matéria<select id="rubricCourse" required></select></label><label>Critérios — um por linha<textarea id="rubricCriteria" rows="6" required placeholder="Organização do código&#10;Funcionamento&#10;Documentação"></textarea></label><button class="primary" type="submit">Salvar rubrica →</button></form></div>
+            <div class="server-analytics-grid"><section class="platform-card"><h3>Notas lançadas</h3><div class="platform-list" id="gradeList"></div></section><section class="platform-card"><h3>Rubricas disponíveis</h3><div class="platform-list" id="rubricList"></div></section></div>
+          </section>
+          <div class="teacher-grid">
+            <form class="teacher-editor" id="contentEditor" data-teacher-panel="content" hidden><div class="teacher-card-head"><span>✎</span><div><small>EDITOR DE AULA E VÍDEO</small><h2>Modificar conteúdo</h2></div></div><div class="teacher-select-row"><label>Matéria<select id="teacherCourse"></select></label><label>Aula<select id="teacherLesson"></select></label></div><div class="teacher-select-row"><label>Publicação<select id="teacherLessonStatus"><option value="draft">Rascunho</option><option value="published">Publicada</option><option value="archived">Arquivada</option></select></label><label>Pré-requisitos separados por linha<textarea id="teacherPrerequisites" rows="3"></textarea></label></div><label>Título da aula<input id="teacherLessonTitle" required></label><label>Objetivos de aprendizagem separados por linha<textarea id="teacherObjectives" rows="3"></textarea></label><label>Contexto<textarea id="teacherContext" rows="4" required></textarea></label><label>Explicação aprofundada<textarea id="teacherExplanation" rows="5" required></textarea></label><label>Exemplo de sistema<input id="teacherSystem" required></label><label>Erro comum que o aluno deve evitar<input id="teacherCommonError" required></label><label>Atividade<textarea id="teacherActivity" rows="4" required></textarea></label><label>Critérios de domínio separados por linha<textarea id="teacherCheckpoints" rows="3"></textarea></label><label>Link do vídeo da aula<input id="teacherVideoUrl" type="url" required placeholder="https://www.youtube.com/watch?v=..."></label><label>Orientação antes do vídeo<input id="teacherVideoNote" required></label><div class="teacher-video-preview" id="teacherVideoPreview"></div><button class="primary" type="submit">Salvar aula no servidor →</button></form>
+            <form class="teacher-editor" id="challengeEditor" data-teacher-panel="challenges" hidden><div class="teacher-card-head"><span>◇</span><div><small>NOVO DESAFIO</small><h2>Adicionar prática extra</h2></div></div><div class="teacher-select-row"><label>Turma<select id="challengeClass"><option value="">Todas as turmas</option></select></label><label>Publicação<select id="challengeStatus"><option value="draft">Rascunho</option><option value="published" selected>Publicado</option><option value="archived">Arquivado</option></select></label></div><div class="teacher-select-row"><label>Matéria<select id="challengeCourse"></select></label><label>Prazo<input id="challengeDueAt" type="datetime-local"></label></div><label>Título<input id="challengeTitle" required maxlength="100" placeholder="Ex.: Relatório de alunos com SQL"></label><label>Instruções<textarea id="challengeInstruction" rows="5" required></textarea></label><label>Código inicial<textarea id="challengeCode" rows="8" required spellcheck="false"></textarea></label><button class="primary" type="submit">Salvar desafio no servidor →</button><div class="teacher-challenge-list" id="teacherChallengeList"></div></form>
+          </div>
+          <form class="teacher-editor teacher-3d-editor" id="model3DEditor" data-teacher-panel="lab3d" hidden><div class="teacher-card-head"><span>◈</span><div><small>EDITOR DO LABORATÓRIO 3D</small><h2>Criar ou modificar projeto 3D</h2></div></div><div class="teacher-select-row"><label>Projeto<select id="teacher3DProject"></select></label><label>Componente<select id="teacher3DType"><option value="led">LED</option><option value="rgb">LED RGB</option><option value="button">Botão</option><option value="potentiometer">Potenciômetro</option><option value="sensor">Sensor</option><option value="temperature">Temperatura</option><option value="servo">Servo</option><option value="motor">Motor</option><option value="display">Display</option><option value="relay">Relé</option><option value="buzzer">Buzzer</option></select></label></div><label>Nome do projeto<input id="teacher3DTitle" required></label><label>Descrição<textarea id="teacher3DDescription" rows="3" required></textarea></label><div class="teacher-select-row"><label>GPIO<input id="teacher3DPin" value="GPIO2" required></label><label>Cor do modelo<input id="teacher3DColor" type="color" value="#b9ff3b"></label></div><label>Código MicroPython<textarea id="teacher3DCode" rows="9" required spellcheck="false"></textarea></label><div class="teacher-3d-actions"><button class="primary" type="submit">Salvar projeto 3D →</button><button type="button" id="new3DProject">Criar novo</button><button class="danger" type="button" id="delete3DProject">Remover projeto</button></div></form>
+          <div class="teacher-academic-grid"><form class="teacher-editor" id="resourceEditor" data-teacher-panel="content" hidden><div class="teacher-card-head"><span>▤</span><div><small>BIBLIOTECA ACADÊMICA</small><h2>Adicionar material de estudo</h2></div></div><div class="teacher-select-row"><label>Matéria<select id="resourceCourse"></select></label><label>Aula<select id="resourceLesson"><option value="-1">Todas as aulas</option></select></label></div><div class="teacher-select-row"><label>Tipo<select id="resourceType"><option>Livro aberto</option><option>PDF</option><option>Artigo</option><option>Documentação</option><option>Curso universitário</option></select></label><label>Autor ou instituição<input id="resourceAuthor" required></label></div><label>Título<input id="resourceTitle" required></label><label>Link público<input id="resourceUrl" type="url" required></label><label>Orientação de leitura<textarea id="resourceNote" rows="3" required></textarea></label><button class="primary" type="submit">Publicar material no servidor →</button><div class="teacher-resource-list" id="teacherResourceList"></div></form><form class="teacher-editor" id="quizEditor" data-teacher-panel="legacy-assessments" hidden><div class="teacher-card-head"><span>?</span><div><small>EDITOR LOCAL LEGADO</small><h2>Avaliações da versão anterior</h2></div></div><label>Avaliação<select id="teacherQuizSelect"><option value="new">+ Nova avaliação</option></select></label><div class="teacher-select-row"><label>Matéria<select id="teacherQuizCourse"></select></label><label>Formato<select id="teacherQuizType"><option value="quiz">Quiz</option><option value="simulado">Simulado</option></select></label></div><label>Título<input id="teacherQuizTitle" required></label><div class="teacher-select-row"><label>Destinatário<select id="teacherQuizTarget"><option value="todos">Todos os alunos</option></select></label><label>Tempo em minutos<input id="teacherQuizDuration" type="number" min="5" max="180" value="20"></label></div><label>Pergunta<textarea id="teacherQuizQuestion" rows="3" required></textarea></label><label>Alternativa A<input id="teacherQuizOption0" required></label><label>Alternativa B<input id="teacherQuizOption1" required></label><label>Alternativa C<input id="teacherQuizOption2" required></label><label>Alternativa D<input id="teacherQuizOption3" required></label><div class="teacher-select-row"><label>Resposta correta<select id="teacherQuizCorrect"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></label><label>Dificuldade<select id="teacherQuizDifficulty"><option>Iniciante</option><option>Intermediário</option><option>Avançado</option></select></label></div><label>Explicação da resposta<textarea id="teacherQuizExplanation" rows="3" required></textarea></label><div class="teacher-3d-actions"><button class="primary" type="submit">Salvar pergunta →</button><button type="button" id="newTeacherQuiz">Nova avaliação</button></div><div class="teacher-quiz-list" id="teacherQuizList"></div></form></div>
+          <form class="teacher-editor server-assessment-editor" id="serverAssessmentEditor" data-teacher-panel="assessments" hidden><div class="teacher-card-head"><span>?</span><div><small>AVALIAÇÃO MULTIUSUÁRIO</small><h2>Criar quiz, simulado ou atividade</h2></div></div><div class="teacher-select-row"><label>Turma<select id="serverAssessmentClass" required></select></label><label>Matéria<select id="serverAssessmentCourse" required></select></label></div><div class="teacher-select-row"><label>Formato<select id="serverAssessmentType"><option value="quiz">Quiz</option><option value="simulado">Simulado</option><option value="atividade">Atividade</option></select></label><label>Publicação<select id="serverAssessmentStatus"><option value="draft">Rascunho</option><option value="published">Publicar agora</option></select></label></div><label>Título<input id="serverAssessmentTitle" required maxlength="160"></label><label>Descrição<textarea id="serverAssessmentDescription" rows="3" maxlength="2000"></textarea></label><div class="teacher-select-row"><label>Abertura<input id="serverAssessmentOpen" type="datetime-local"></label><label>Prazo final<input id="serverAssessmentDue" type="datetime-local"></label></div><div class="teacher-select-row"><label>Duração em minutos<input id="serverAssessmentDuration" type="number" min="5" max="180" value="20"></label><label>Tentativas permitidas<input id="serverAssessmentAttempts" type="number" min="1" max="10" value="1"></label></div><label>Nota mínima (%)<input id="serverAssessmentMinimum" type="number" min="0" max="100" value="60"></label><div class="assessment-question-builder"><div class="platform-card-head"><div><span class="kicker">QUESTÕES</span><h3>Banco desta avaliação</h3></div><button type="button" id="addAssessmentQuestion">+ Adicionar questão</button></div><div id="assessmentQuestionList"></div></div><button class="primary" type="submit">Salvar avaliação no servidor →</button><div class="platform-list" id="serverAssessmentList"></div></form>
+          <section class="database-manager" data-teacher-panel="database" hidden><div><span class="kicker">BANCO DE DADOS SQLITE</span><h2>Dados multiusuário da plataforma</h2><p>Crie cópias completas de segurança. O banco fica na pasta <code>data</code> e pode ser transferido para outro computador.</p><div class="backup-list" id="backupList"></div></div><div><button class="primary" id="createServerBackup">Criar backup agora</button><button id="exportDatabase">↓ Exportar banco.json legado</button><label class="import-database">↑ Importar JSON legado<input id="importDatabase" type="file" accept="application/json,.json" hidden></label></div></section>
+        </section>
+
+        <section class="view admin-view" id="administrador">
+          <div class="page-heading admin-page-heading"><div><span class="kicker" id="adminWorkspaceKicker">GESTÃO INSTITUCIONAL</span><h1 id="adminWorkspaceTitle">Visão geral</h1><p id="adminWorkspaceDescription">Acompanhe o ambiente acadêmico e os controles da instituição.</p></div><span class="admin-badge">ADMINISTRADOR</span></div>
+
+          <section data-admin-panel="overview">
+            <div class="admin-metrics" id="adminMetrics"></div>
+            <div class="admin-overview-grid">
+              <article class="admin-card admin-institution-summary" id="adminInstitutionSummary"></article>
+              <article class="admin-card"><div class="admin-card-head"><div><span class="kicker">ACESSOS RECENTES</span><h2>Usuários da plataforma</h2></div><button type="button" data-open-admin-section="users">Ver diretório →</button></div><div class="admin-list" id="adminRecentUsers"></div></article>
+              <article class="admin-card"><div class="admin-card-head"><div><span class="kicker">PULSO ACADÊMICO</span><h2>Turmas ativas</h2></div><button type="button" data-open-admin-section="academics">Ver gestão →</button></div><div class="admin-list" id="adminRecentClasses"></div></article>
+              <article class="admin-card lgpd-summary" id="adminPrivacySummary"></article>
+            </div>
+          </section>
+
+          <section data-admin-panel="institution" hidden>
+            <form class="admin-card admin-form" id="institutionForm">
+              <div class="admin-card-head"><div><span class="kicker">IDENTIDADE DA INSTITUIÇÃO</span><h2>Dados principais</h2><p>Essas informações aparecem no painel administrativo.</p></div><span class="institution-preview" id="institutionPreview">CO</span></div>
+              <div class="admin-form-grid"><label class="wide">Nome da instituição<input id="institutionName" required maxlength="120"></label><label>Sigla<input id="institutionShortName" required maxlength="12"></label><label>Unidade ou campus<input id="institutionCampus" required maxlength="120"></label><label class="wide">E-mail de privacidade<input id="institutionPrivacyEmail" type="email" required maxlength="160"></label><label>Cor principal<input id="institutionPrimaryColor" type="color" value="#5b3cc4"></label><label>Cor de destaque<input id="institutionAccentColor" type="color" value="#c4b5fd"></label></div>
+              <button class="primary" type="submit">Salvar instituição →</button>
+            </form>
+          </section>
+
+          <section data-admin-panel="users" hidden>
+            <div class="admin-card"><div class="admin-card-head"><div><span class="kicker">USUÁRIOS, GRUPOS E ACESSOS</span><h2>Diretório completo</h2><p>Ative ou desative contas e mova usuários entre Aluno, Professor e Administrador. As alterações ficam registradas.</p></div><label class="admin-search">Buscar<input id="adminUserSearch" type="search" placeholder="Nome, e-mail ou grupo"></label></div><div class="admin-user-list" id="adminUserList"></div></div>
+          </section>
+
+          <section data-admin-panel="academics" hidden>
+            <div class="admin-metrics" id="adminAcademicMetrics"></div>
+            <div class="admin-card"><div class="admin-card-head"><div><span class="kicker">ESTRUTURA ACADÊMICA</span><h2>Turmas e professores</h2><p>Visão geral das turmas, matrículas e responsáveis.</p></div></div><div class="admin-class-list" id="adminClassList"></div></div>
+          </section>
+
+          <section data-admin-panel="content" hidden>
+            <form class="admin-card admin-content-editor" id="adminContentEditor"><div class="admin-card-head"><div><span class="kicker">EDITOR INSTITUCIONAL</span><h2>Aulas, textos, vídeos e atividades</h2><p>O administrador pode revisar e publicar qualquer uma das 98 aulas sem alterar arquivos manualmente.</p></div><span class="status-pill active" id="adminLessonSaveStatus">PUBLICADA</span></div><div class="admin-form-grid"><label>Matéria<select id="adminContentCourse" required></select></label><label>Aula<select id="adminContentLesson" required></select></label><label>Publicação<select id="adminContentStatus"><option value="draft">Rascunho</option><option value="published">Publicada</option><option value="archived">Arquivada</option></select></label><label class="wide">Título<input id="adminContentTitle" required maxlength="180"></label><label class="wide">Contexto<textarea id="adminContentContext" rows="4" required maxlength="8000"></textarea></label><label class="wide">Explicação<textarea id="adminContentExplanation" rows="6" required maxlength="12000"></textarea></label><label>Exemplo de sistema<input id="adminContentSystem" required maxlength="500"></label><label>Erro comum<input id="adminContentError" required maxlength="3000"></label><label class="wide">Atividade final<textarea id="adminContentActivity" rows="4" required maxlength="5000"></textarea></label><label class="wide">Objetivos — um por linha<textarea id="adminContentObjectives" rows="4"></textarea></label><label class="wide">Critérios de domínio — um por linha<textarea id="adminContentCheckpoints" rows="4"></textarea></label><label class="wide">Vídeo completo alternativo<input id="adminContentVideo" type="url" required placeholder="https://www.youtube.com/watch?v=..."></label><label class="wide">Orientação do vídeo<input id="adminContentVideoNote" required maxlength="1000"></label></div><button class="primary" type="submit">Salvar conteúdo no SQLite →</button></form>
+          </section>
+
+          <section data-admin-panel="indicators" hidden>
+            <div class="admin-card"><div class="admin-card-head"><div><span class="kicker">INDICADORES REAIS</span><h2>Competências e participação</h2><p>Os valores são apresentados com texto e números, sem depender somente de cores.</p></div></div><div class="competency-grid" id="adminCompetencies"></div></div>
+          </section>
+
+          <section data-admin-panel="privacy" hidden>
+            <div class="admin-overview-grid privacy-layout">
+              <article class="admin-card"><div class="admin-card-head"><div><span class="kicker">PREPARAÇÃO LGPD</span><h2>Checklist institucional</h2><p>Controle de apoio à organização; não substitui avaliação jurídica.</p></div><strong class="privacy-percent" id="adminPrivacyPercent">0%</strong></div><div class="privacy-checklist" id="adminPrivacyTasks"></div></article>
+              <article class="admin-card"><span class="kicker">ORGANIZAÇÃO VISUAL</span><h2>Interface da versão 10</h2><p>Layout com hierarquia clara, cartões agrupados, espaços maiores e menos elementos competindo pela atenção.</p><div class="visual-principles"><span>✓ Conteúdo preservado</span><span>✓ Navegação por perfil</span><span>✓ Alto contraste e tema escuro</span><span>✓ Responsivo para tablet e computador</span></div></article>
+            </div>
+          </section>
+
+          <section data-admin-panel="database" hidden>
+            <div class="admin-card database-admin-card"><div><span class="kicker">BANCO LOCAL SQLITE</span><h2>Dados sem Firebase</h2><p>Contas, sessões, turmas, matrículas, avaliações, mensagens, conteúdo e configurações são gravados no arquivo <code>data/coda.sqlite</code>.</p><div class="database-facts" id="adminDatabaseFacts"></div></div><div class="database-actions"><button class="primary" id="adminCreateBackup" type="button">Criar backup agora</button><div class="admin-backup-list" id="adminBackupList"></div></div></div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Navegação rápida no celular"></nav>
+    <button class="chat-button student-interface" id="chatButton" aria-label="Abrir Tutor Coda"><span>TC</span><b>Tutor Coda</b><i></i></button>
+    <aside class="accessibility-panel" id="accessibilityPanel" aria-label="Preferências de acessibilidade" hidden>
+      <header><div><small>ACESSIBILIDADE</small><strong>Personalize todo o site</strong></div><button id="closeAccessibility" aria-label="Fechar">×</button></header>
+      <div class="accessibility-group"><span>Tamanho de todas as letras</span><div class="font-size-options"><button data-font-size="normal">100%</button><button data-font-size="large">115%</button><button data-font-size="xlarge">130%</button></div></div>
+      <label class="accessibility-select"><span><strong>Perfil de cores</strong><small>Paletas distinguíveis para daltonismo</small></span><select id="colorVision"><option value="default">Padrão</option><option value="protanopia">Protanopia</option><option value="deuteranopia">Deuteranopia</option><option value="tritanopia">Tritanopia</option><option value="monochrome">Monocromático</option></select></label>
+      <div class="accessibility-switch"><span><strong>Alto contraste</strong><small>Reforça bordas e textos</small></span><button class="accessibility-toggle" id="highContrast" type="button" role="switch" aria-checked="false" aria-label="Ativar alto contraste"><i aria-hidden="true"></i></button></div>
+      <div class="accessibility-switch"><span><strong>Reduzir animações</strong><small>Remove movimentos decorativos</small></span><button class="accessibility-toggle" id="reduceMotion" type="button" role="switch" aria-checked="false" aria-label="Reduzir animações"><i aria-hidden="true"></i></button></div>
+      <button class="accessibility-read" id="readCurrentPage" type="button">🔊 Ler conteúdo principal</button>
+      <button class="accessibility-read" id="stopReading" type="button" disabled>■ Parar leitura</button>
+      <button class="accessibility-reset" id="resetAccessibility" type="button">Restaurar acessibilidade</button>
+      <p class="accessibility-hint">Atalhos: Ctrl + K busca, Esc fecha painéis. O Widget oficial do VLibras aparece no canto inferior direito quando houver internet. <a href="https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras" target="_blank" rel="noopener noreferrer">Conheça o VLibras no portal GOV.BR</a>.</p>
+    </aside>
+    <aside class="chat tutor-chat student-interface" id="chat" aria-label="Tutor Coda">
+      <header><span>TC</span><div><strong>Tutor Coda</strong><small id="chatStatus"><i></i> Base local + artigos científicos</small></div><div class="chat-header-actions"><button id="chatHistoryButton" type="button" aria-label="Abrir histórico" title="Histórico">☷</button><button id="newChatButton" type="button" aria-label="Nova conversa" title="Nova conversa">＋</button><button id="closeChat" type="button" aria-label="Fechar">×</button></div></header>
+      <section class="chat-history" id="chatHistory" hidden><div><strong>Suas conversas</strong><button id="closeChatHistory" type="button">Voltar</button></div><div id="chatConversationList"></div></section>
+      <div class="chat-modes" id="chatModes" aria-label="Modo do tutor"><button class="active" type="button" data-chat-mode="explain"><b>Explicar</b><span>Entender a aula</span></button><button type="button" data-chat-mode="hint"><b>Dar dica</b><span>Sem entregar</span></button><button type="button" data-chat-mode="code"><b>Código</b><span>Revisar erros</span></button><button type="button" data-chat-mode="quiz"><b>Revisão</b><span>Testar conhecimento</span></button><button type="button" data-chat-mode="research"><b>Artigos</b><span>Buscar evidências</span></button></div>
+      <p class="chat-mode-hint" id="chatModeHint">Explicação clara usando a aula atual e o seu progresso.</p>
+      <div class="chat-context"><span id="chatContextText">Contexto geral da Coda</span><label><input id="chatIncludeCode" type="checkbox"> Incluir código atual</label></div>
+      <div class="chat-code-tools" id="chatCodeTools" hidden><span id="chatLabCodeLabel">HTML • index.html</span><div><button id="chatAnalyzeCurrent" type="button">Analisar código atual</button><button id="chatAnalyzeAll" type="button">Analisar os 14 códigos</button></div></div>
+      <div class="messages" id="messages" aria-live="polite"></div>
+      <div class="suggestions"><button data-question="Explique a aula atual de forma simples">Explicar aula atual</button><button data-question="Analise meu código e me dê uma pista" data-use-code="true">Revisar meu código</button><button data-question="Pesquise artigos científicos sobre ensino de programação" data-use-research="true">Buscar um exemplo científico</button></div>
+      <form id="chatForm"><textarea id="chatInput" rows="1" maxlength="12000" autocomplete="off" placeholder="Escreva sua dúvida ou cole um código para análise..."></textarea><button id="chatSend" aria-label="Enviar">➤</button></form>
+    </aside>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+  <div vw class="enabled" aria-label="Tradutor de Libras"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+  <script src="public-api.js?v=10.9.4-pages-login"></script>
+  <script src="js/utils.js?v=10.5.0"></script>
+  <script src="platform.js?v=10.5.0"></script>
+  <script src="admin.js?v=10.5.0.3"></script>
+  <script src="js/social-network-v3.js?v=10.9.1"></script>
+  <script src="lesson-content.js?v=10.5.0"></script>
+  <script src="script.js?v=10.5.4"></script>
+</body>
+</html>

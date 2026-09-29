@@ -1,0 +1,25 @@
+CODA - MODO GITHUB PAGES
+========================
+
+Esta versão detecta automaticamente quando está rodando em *.github.io.
+Nesse caso, login/cadastro e progresso do aluno ficam salvos no navegador (localStorage).
+
+CONTA DEMO
+E-mail: demo@coda.local
+Senha: Coda2026!
+Perfil: Aluno
+
+Você também pode clicar em "Criar conta" e cadastrar seu próprio aluno.
+
+IMPORTANTE
+- Laboratório, ESP32, RA no celular e RA no óculos funcionam no modo Pages.
+- Recursos institucionais que exigem servidor Node/SQLite continuam sendo recursos da versão local/servidor.
+- Dados do modo Pages ficam apenas naquele navegador/dispositivo; não use esta versão estática como autenticação de produção.
+
+PARA ATUALIZAR O GITHUB
+1. Entre no repositório REALIDADE_AUMENTADA.
+2. Entre na pasta publicada "esp32-v18-distribuicao-RA-OCULOS-CELULAR (1)".
+3. Substitua os arquivos desta versão pelos arquivos do ZIP.
+4. Faça Commit changes.
+5. Aguarde o GitHub Pages atualizar.
+6. Se o navegador ainda mostrar a versão antiga, feche a guia e abra novamente ou limpe os dados/cache do site.

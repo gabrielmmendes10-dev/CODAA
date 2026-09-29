@@ -1,0 +1,17 @@
+/* Coda 10.5.0: manifesto de estilos. A ordem abaixo é intencional. */
+@import url("./styles/legacy.css");
+@import url("./styles/base.css");
+@import url("./themes/light.css?v=10.5.0.7");
+@import url("./themes/dark.css");
+@import url("./components/login.css?v=10.5.0.7");
+@import url("./components/orbitals.css");
+@import url("./components/cards.css");
+@import url("./components/three-d-programmer.css?v=10.5.0.3");
+@import url("./components/circuit-simulator.css?v=10.9.3");
+@import url("./components/social-network.css?v=10.6.0");
+@import url("./components/social-profile-admin.css?v=10.8.0");
+@import url("./components/social-v3.css?v=10.9.0");
+@import url("./pages/student.css");
+@import url("./pages/teacher.css");
+@import url("./pages/admin.css?v=10.5.0.2");
+@import url("./styles/responsive.css");

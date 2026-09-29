@@ -1,0 +1,17 @@
+:is(.course-card,.platform-card,.teacher-editor,.admin-card,.student-widget,.activity-card,.formative-check){border-radius:var(--card-radius)}
+.course-card,.platform-card,.teacher-editor,.admin-card{padding:clamp(1rem,2vw,1.35rem)}
+.course-card:hover,.path-grid button:hover{transform:translateY(-2px)}
+.platform-empty{min-height:120px;padding:1.5rem;font-size:.88rem}
+.status-pill{font-size:.72rem!important;letter-spacing:.04em}
+.teacher-card-head h2,.admin-card h2,.platform-card h2{line-height:1.25}
+.section-collapse{min-height:36px}
+.adaptive-card{margin:1.25rem 0;padding:1.15rem;border:1px solid color-mix(in srgb,var(--role-accent) 38%,var(--line));border-radius:15px;background:var(--role-accent-soft)}
+.adaptive-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.adaptive-card h3{margin:.25rem 0}.adaptive-card p{font-size:.9rem;color:var(--muted)}
+.adaptive-options{display:grid;gap:.55rem;margin:1rem 0}.adaptive-options button{min-height:46px;padding:.7rem .85rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);text-align:left}.adaptive-options button.correct{border-color:#238b57;background:color-mix(in srgb,#238b57 10%,var(--surface))}.adaptive-options button.wrong{border-color:var(--red)}
+.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.review-card{padding:1rem;border:1px solid var(--line);border-radius:13px;background:var(--surface)}.review-card small,.review-card strong,.review-card p{display:block}.review-card p{font-size:.82rem;color:var(--muted)}
+.report-actions{display:flex;flex-wrap:wrap;gap:.55rem}.report-actions button{min-height:42px}
+.adaptive-check{margin:1.25rem 0;padding:1.2rem;border:1px solid color-mix(in srgb,var(--role-accent) 38%,var(--line));border-radius:15px;background:var(--role-accent-soft)}
+.adaptive-check h3{margin:.35rem 0}.adaptive-check>p{margin:.35rem 0;color:var(--muted)}
+.adaptive-options label{display:flex;align-items:center;gap:.65rem;padding:.7rem .8rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer}.adaptive-options input{min-height:auto}
+.adaptive-feedback{padding:.7rem;border-radius:9px}.adaptive-feedback.correct{background:color-mix(in srgb,#238b57 12%,var(--surface));color:#176a43}.adaptive-feedback.incorrect{background:color-mix(in srgb,var(--red) 10%,var(--surface));color:var(--red)}
+.lab-version-result{margin:0 0 1rem;min-height:90px}
